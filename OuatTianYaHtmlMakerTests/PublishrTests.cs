@@ -17,7 +17,10 @@ namespace OuatTianYaHtmlMaker.Tests
         public void PublishrTest()
         {
             Publishr ps = new Publishr();
+            Assert.NotNull(ps.Re.Author);
+            Assert.NotNull(ps.Re.Title);
             Assert.AreEqual("三语沫", ps.Re.Author);
+            
         }
     }
 }

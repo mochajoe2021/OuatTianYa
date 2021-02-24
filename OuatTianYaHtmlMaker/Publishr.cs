@@ -22,6 +22,7 @@ namespace OuatTianYaHtmlMaker
         }
         public void  MakeHtml()
         {
+            Console.WriteLine(DateTime.Now);
             Console.WriteLine(Re.Author);
             Console.WriteLine();
             Console.WriteLine(Re.Title);
