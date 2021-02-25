@@ -67,17 +67,8 @@ namespace OuatTianYaHtmlMaker {
         ///    &quot;ChapterCount&quot;: 1,
         ///    &quot;Chapters&quot;: [
         ///        {
-        ///            &quot;Time&quot;: &quot;2012-02-03 22:15&quot;,
-        ///            &quot;Text&quot;: &quot;第一次见到几年的她（当然这是她的版本的第一次见面，高中那场我与她在走廊上富有浪漫情怀的初遇，早就被这个没良心没记性的娃忘到九霄云外去了。。。）&quot;,
-        ///            &quot;Readers&quot;: [
-        ///                {
-        ///                    &quot;Time&quot;: &quot;2017-03-11 23:26&quot;,
-        ///                    &quot;Text&quot;: &quot;楼主现在怎么样了&quot;,
-        ///                    &quot;Name&quot;: &quot;王芊芊1228&quot;
-        ///                },
-        ///                {
-        ///                    &quot;Time&quot;: &quot;2016-11-17 12:13&quot;,
-        ///  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///            &quot;Time&quot;: &quot;2012-02-03 21:23&quot;,
+        ///            &quot;Text&quot;: &quot;&lt;p&gt;第一次发贴，纯属打发时间，借此把那些不能再现实中倾诉的心路历程倾诉出来。&lt;/p&gt;&lt;p&gt;第一次见到她呢，远在七八年前，那时候她可叱咤风云了，高中的她喜欢穿白色飘逸的长裙，清丽婉约，袅袅婷婷，男生们都为她疯狂，每次她经过我们班的时候我们班那群就像炸开锅般吹口哨，起哄的什么的。&lt;/p&gt;&lt;p&gt;高中的我呢，是个女生眼中帅气的T,男生眼中不伦不类变态的T，融入不了小女生的世界，内向的我也怯于与男生交流，再加上男生大多不怎么接受打扮中性的女生的，所以那时候的我挺孤独的。&lt;/p&gt;&lt;p&gt;晚自习的课间我每天都会出来趴在走廊上的栏杆上透透气，有一天晚上，我突然再次听到男生们十分嘈杂的起哄声，厌恶之余转过身，却一眼撞见小跑而来她的目光，她蓦地停下脚步望着我，我还注意到她还抿紧了嘴唇，清 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string String1 {
             get {
