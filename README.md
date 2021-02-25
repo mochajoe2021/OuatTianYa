@@ -14,7 +14,10 @@ Once upon a time in TianYa
 
 https://github.com/mochajoe2021/OuatTianYa/wiki
 
+其实每个人fork这个项目，为自己喜欢的作者和文章做专属html，这样很多文章可以离线阅读。
+
 #Why the project is useful
+
 
 这个项目，可以帮助有同样的需求的读者，制作一个可脱机阅读的HTML文档。
 
@@ -25,6 +28,9 @@ https://github.com/mochajoe2021/OuatTianYa/wiki
 
 
 Where users can get help with your project
+
+这个项目，可以帮助有同样的需求的读者，制作一个可脱机阅读的HTML文档。
+在这里提供需要的作者和文章名称。
 
 https://github.com/mochajoe2021/OuatTianYa/issues
 
