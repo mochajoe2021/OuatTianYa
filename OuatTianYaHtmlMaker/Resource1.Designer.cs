@@ -86,7 +86,10 @@ namespace OuatTianYaHtmlMaker {
         }
         
         /// <summary>
-        ///   查找类似 &lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;{0}-{1}&lt;/title&gt;&lt;style&gt;.mask{background-color:#252525;color:#252525;transition:color .5s;word-wrap:break-word;word-break:break-all;}.mask:hover{color:#F2F8DA;word-wrap:break-word;word-break:break-all;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&quot;black&quot;&gt;&lt;div v-bind:style=&quot;{ color: activeColor, fontSize: fontSize + &apos;px&apos; }&quot;&gt;&lt;p&gt;{0}-{1}&lt;/p&gt;&lt;p class=&quot;mask&quot;&gt;&lt;br/&gt;{2}&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;{0}-{1}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt; 的本地化字符串。
+        ///   查找类似 &lt;!DOCTYPE HTML&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;title&gt;{0}-{1}&lt;/title&gt;&lt;script type=&quot;text/javascript&quot;&gt;var alli=0;function getDocumentTop(){var scrollTop=0,bodyScrollTop=0,documentScrollTop=0;if(document.body){bodyScrollTop=document.body.scrollTop;}
+        ///if(document.documentElement){documentScrollTop=document.documentElement.scrollTop;}
+        ///scrollTop=(bodyScrollTop-documentScrollTop&gt;0)?bodyScrollTop:documentScrollTop;return scrollTop;}
+        ///function getWindowHeight(){var windowHeight=0;if(document.compatMode==&quot;CSS1Com [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string String2 {
             get {

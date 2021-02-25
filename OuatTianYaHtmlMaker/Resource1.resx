@@ -164,6 +164,18 @@
 }</value>
   </data>
   <data name="String2" xml:space="preserve">
-    <value>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset="utf-8"&gt;&lt;title&gt;{0}-{1}&lt;/title&gt;&lt;style&gt;.mask{background-color:#252525;color:#252525;transition:color .5s;word-wrap:break-word;word-break:break-all;}.mask:hover{color:#F2F8DA;word-wrap:break-word;word-break:break-all;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id="black"&gt;&lt;div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"&gt;&lt;p&gt;{0}-{1}&lt;/p&gt;&lt;p class="mask"&gt;&lt;br/&gt;{2}&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;{0}-{1}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</value>
+    <value>&lt;!DOCTYPE HTML&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset="utf-8"/&gt;&lt;title&gt;{0}-{1}&lt;/title&gt;&lt;script type="text/javascript"&gt;var alli=0;function getDocumentTop(){var scrollTop=0,bodyScrollTop=0,documentScrollTop=0;if(document.body){bodyScrollTop=document.body.scrollTop;}
+if(document.documentElement){documentScrollTop=document.documentElement.scrollTop;}
+scrollTop=(bodyScrollTop-documentScrollTop&gt;0)?bodyScrollTop:documentScrollTop;return scrollTop;}
+function getWindowHeight(){var windowHeight=0;if(document.compatMode=="CSS1Compat"){windowHeight=document.documentElement.clientHeight;}else{windowHeight=document.body.clientHeight;}
+return windowHeight;}
+function getScrollHeight(){var scrollHeight=0,bodyScrollHeight=0,documentScrollHeight=0;if(document.body){bodyScrollHeight=document.body.scrollHeight;}
+if(document.documentElement){documentScrollHeight=document.documentElement.scrollHeight;}
+scrollHeight=(bodyScrollHeight-documentScrollHeight&gt;0)?bodyScrollHeight:documentScrollHeight;return scrollHeight;}
+function fnDate(){var oDiv=document.getElementById("time");var date=new Date();var year=date.getFullYear();var month=date.getMonth();var data=date.getDate();var hours=date.getHours();var minute=date.getMinutes();var second=date.getSeconds();var time=year+"-"+fnW((month+1))+"-"+fnW(data)+" "+fnW(hours)+":"+fnW(minute)+":"+fnW(second);return time;}
+function fnW(str){var num;str&gt;=10?num=str:num="0"+str;return num;}
+function addData(){var screenHeight=getWindowHeight(),textHeight=screenHeight/3,listObj=document.getElementById("dataList");var len=Math.round(screenHeight/textHeight)||1;alli++;for(var i=0;i&lt;len;i=i+2){var div=document.createElement("div"),txt=document.createElement("p");txt.className='Author';txt.innerHTML=alli+"&lt;br/&gt;"+i+"&lt;br/&gt;"+fnDate()+"&lt;br/&gt;{2}";div.align="left";txt.height=screenHeight;div.appendChild(txt);listObj.appendChild(div);var div=document.createElement("div"),txt=document.createElement("p");txt.className='read';txt.innerHTML=alli+"&lt;br/&gt;"+(i+1)+"&lt;br/&gt;"+fnDate()+"&lt;br/&gt;{3}";div.align="left";txt.height=screenHeight;div.appendChild(txt);listObj.appendChild(div);}}
+window.onload=function(){addData();document.body.scrollIntoView();}
+window.onscroll=function(){if(getScrollHeight()==getWindowHeight()+getDocumentTop()){addData();}}&lt;/script&gt;&lt;style&gt;p.Chapters{color:#FFECBF;background-color:#FFB200;display:block;visibility:visible;cursor:pointer;margin:0 auto;border:2px solid #FFB200;font-size:2em;text-align:center;}p.Author{color:#FFB200;background-color:#FFECBF;display:block;visibility:visible;cursor:pointer;margin:0 auto;border:10px solid #FFECBF;border-radius:30px;font-size:2em;}p.read{color:#d8a373;background-color:#CCF;display:block;visibility:visible;cursor:pointer;border:10px solid #CCF;border-radius:30px;font-size:2em;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id="Chapters"&gt;&lt;p class="Chapters"&gt;&lt;br/&gt;{1} &lt;br/&gt;{0} &lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;&lt;div id="dataList"&gt;&lt;/div&gt;&lt;center style="display:none"&gt;&lt;/center&gt;&lt;/body&gt;&lt;/html&gt;</value>
   </data>
 </root>

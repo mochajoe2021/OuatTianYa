@@ -32,6 +32,7 @@ namespace OuatTianYaHtmlMaker
             html = html.Replace("{0}", Re.Author);
             html = html.Replace("{1}", Re.Title);
             html = html.Replace("{2}",Re.Chapters[0].Text);
+            html = html.Replace("{3}", Re.Chapters[0].Readers[0].Text);
             System.IO.File.WriteAllText($"{Re.Author}-{Re.Title}.html", html);
 
         }
