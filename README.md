@@ -14,7 +14,7 @@ Once upon a time in TianYa
 
 https://github.com/mochajoe2021/OuatTianYa/wiki
 
-其实每个人fork这个项目，为自己喜欢的作者和文章做专属html，这样很多文章可以离线阅读。
+其实每个人fork这个项目，为自己喜欢的作者和文章做专属html，这样很多文章源文件删除后，也可以离线阅读。
 
 #Why the project is useful
 
