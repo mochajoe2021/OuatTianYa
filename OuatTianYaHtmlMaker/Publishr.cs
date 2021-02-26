@@ -15,12 +15,35 @@ namespace OuatTianYaHtmlMaker
             get;
             set;
         }
+        private static string U2A(string theText)
+        {
+            try
+            {
+                string output = string.Empty;
+                 if (theText.Contains("&#"))
+                {
+                    output = System.Text.RegularExpressions.Regex.Replace(
+                    theText,
+                    @"&#(?<Value>[a-zA-Z0-9]+);",
+                    m =>
+                    {
+                        return ((char)int.Parse(m.Groups["Value"].Value)).ToString();
+                    });
+                }               
+                return output;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return "";
+        }
 
         public Publishr()
         {
-            Re = JsonConvert.DeserializeObject<ReadingEnvironment>(Resource1.String1);
+            Re = JsonConvert.DeserializeObject<ReadingEnvironment>(U2A(Resource1.String1));
         }
-        public void  MakeHtml()
+        public void MakeHtml()
         {
             Console.WriteLine(DateTime.Now);
             Console.WriteLine(Re.Author);
@@ -29,10 +52,8 @@ namespace OuatTianYaHtmlMaker
             Console.WriteLine();
             Console.WriteLine(Re.Chapters[0].Text);
             string html = Resource1.String2;
-            html = html.Replace("{0}", Re.Author);
-            html = html.Replace("{1}", Re.Title);
-            html = html.Replace("{2}",Re.Chapters[0].Text);
-            html = html.Replace("{3}", Re.Chapters[0].Readers[0].Text);
+
+            html = html.Replace("!!!textsjson!!!", Resource1.String1);
             System.IO.File.WriteAllText($"{Re.Author}-{Re.Title}.html", html);
 
         }

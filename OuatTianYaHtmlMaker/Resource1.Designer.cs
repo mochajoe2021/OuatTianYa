@@ -61,14 +61,7 @@ namespace OuatTianYaHtmlMaker {
         }
         
         /// <summary>
-        ///   查找类似 {
-        ///    &quot;Author&quot;: &quot;三语沫&quot;,
-        ///    &quot;Title&quot;: &quot;[右岸文字]暗恋直女学妹的日子&quot;,
-        ///    &quot;ChapterCount&quot;: 1,
-        ///    &quot;Chapters&quot;: [
-        ///        {
-        ///            &quot;Time&quot;: &quot;2012-02-03 21:23&quot;,
-        ///            &quot;Text&quot;: &quot;&lt;p&gt;第一次发贴，纯属打发时间，借此把那些不能再现实中倾诉的心路历程倾诉出来。&lt;/p&gt;&lt;p&gt;第一次见到她呢，远在七八年前，那时候她可叱咤风云了，高中的她喜欢穿白色飘逸的长裙，清丽婉约，袅袅婷婷，男生们都为她疯狂，每次她经过我们班的时候我们班那群就像炸开锅般吹口哨，起哄的什么的。&lt;/p&gt;&lt;p&gt;高中的我呢，是个女生眼中帅气的T,男生眼中不伦不类变态的T，融入不了小女生的世界，内向的我也怯于与男生交流，再加上男生大多不怎么接受打扮中性的女生的，所以那时候的我挺孤独的。&lt;/p&gt;&lt;p&gt;晚自习的课间我每天都会出来趴在走廊上的栏杆上透透气，有一天晚上，我突然再次听到男生们十分嘈杂的起哄声，厌恶之余转过身，却一眼撞见小跑而来她的目光，她蓦地停下脚步望着我，我还注意到她还抿紧了嘴唇，清 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 &amp;#123;&amp;#34;&amp;#65;&amp;#117;&amp;#116;&amp;#104;&amp;#111;&amp;#114;&amp;#34;&amp;#58;&amp;#34;&amp;#92;&amp;#117;&amp;#52;&amp;#101;&amp;#48;&amp;#57;&amp;#92;&amp;#117;&amp;#56;&amp;#98;&amp;#101;&amp;#100;&amp;#92;&amp;#117;&amp;#54;&amp;#99;&amp;#97;&amp;#98;&amp;#34;&amp;#44;&amp;#34;&amp;#84;&amp;#105;&amp;#116;&amp;#108;&amp;#101;&amp;#34;&amp;#58;&amp;#34;&amp;#91;&amp;#92;&amp;#117;&amp;#53;&amp;#51;&amp;#102;&amp;#51;&amp;#92;&amp;#117;&amp;#53;&amp;#99;&amp;#98;&amp;#56;&amp;#92;&amp;#117;&amp;#54;&amp;#53;&amp;#56;&amp;#55;&amp;#92;&amp;#117;&amp;#53;&amp;#98;&amp;#53;&amp;#55;&amp;#93;&amp;#92;&amp;#117;&amp;#54;&amp;#54;&amp;#57;&amp;#55;&amp;#92;&amp;#117;&amp;#54;&amp;#48;&amp;#52;&amp;#98;&amp;#92;&amp;#117;&amp;#55;&amp;#54;&amp;#102;&amp;#52;&amp;#92;&amp;#117;&amp;#53;&amp;#57;&amp;#55;&amp;#51;&amp;#92;&amp;#117;&amp;#53;&amp;#98;&amp;#54;&amp;#54;&amp;#92; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string String1 {
             get {
@@ -77,10 +70,28 @@ namespace OuatTianYaHtmlMaker {
         }
         
         /// <summary>
-        ///   查找类似 &lt;!DOCTYPE HTML&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;title&gt;{0}-{1}&lt;/title&gt;&lt;script type=&quot;text/javascript&quot;&gt;var alli=0;function getDocumentTop(){var scrollTop=0,bodyScrollTop=0,documentScrollTop=0;if(document.body){bodyScrollTop=document.body.scrollTop;}
-        ///if(document.documentElement){documentScrollTop=document.documentElement.scrollTop;}
-        ///scrollTop=(bodyScrollTop-documentScrollTop&gt;0)?bodyScrollTop:documentScrollTop;return scrollTop;}
-        ///function getWindowHeight(){var windowHeight=0;if(document.compatMode==&quot;CSS1Com [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 &lt;!DOCTYPE HTML&gt;
+        ///&lt;html&gt;
+        ///	&lt;head&gt;
+        ///		&lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///		&lt;script type=&quot;text/javascript&quot;&gt;
+        ///		var ChapterCount = 0;
+        ///		var textsjson = &apos;!!!textsjson!!!&apos;;			
+        ///
+        ///		var text = JSON.parse(u2a(textsjson));	
+        /// 
+        ///
+        ///			function getDocumentTop() {
+        ///				var scrollTop = 0,
+        ///				bodyScrollTop = 0,
+        ///				documentScrollTop = 0;
+        ///				if (document.body) {
+        ///					bodyScrollTop = document.body.scrollTop;
+        ///				}
+        ///				if (document.documentElement) {
+        ///					documentScrollTop = document.documentElement.scrollTop;
+        ///				}
+        ///				s [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string String2 {
             get {
