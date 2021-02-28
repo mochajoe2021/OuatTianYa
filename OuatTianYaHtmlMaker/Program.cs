@@ -7,7 +7,6 @@ namespace OuatTianYaHtmlMaker
        
         static void Main(string[] args)
         {
-             
             Publishr ps = new Publishr();
             ps.MakeHtml();
         }
