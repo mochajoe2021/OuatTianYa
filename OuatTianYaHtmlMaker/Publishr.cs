@@ -15,15 +15,58 @@ namespace OuatTianYaHtmlMaker
             get;
             set;
         }
-       
+        private static string U2A(string theText)
+        {
+            try
+            {
+                string output = string.Empty;
+                 if (theText.Contains("&#"))
+                {
+                    output = System.Text.RegularExpressions.Regex.Replace(
+                    theText,
+                    @"&#(?<Value>[a-zA-Z0-9]+);",
+                    m =>
+                    {
+                        return ((char)int.Parse(m.Groups["Value"].Value)).ToString();
+                    });
+                }               
+                return output;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return "";
+        }
+        private static string A2U (string theText)
+        {
+            try
+            {
+                string output = string.Empty;
+                StringBuilder sb1 = new StringBuilder();
+
+                for (int i = 0; i < theText.Length; i++)
+                {   
+                    sb1.Append($"&#{(int)theText[i]};");
+                }
+
+                output = sb1.ToString();
+                return output;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return "";
+        }
         public Publishr()
         {
             string s1 = Resource1.String1;
-            string s2 = OuatTools.U2A(s1);
-            string s3 = OuatTools.A2U(s2);
+            string s2 = U2A(s1);
+            string s3 = A2U(s2);
             Console.WriteLine(s1==s3);
           
-            Re = JsonConvert.DeserializeObject<ReadingEnvironment>(OuatTools.U2A(Resource1.String1));
+            Re = JsonConvert.DeserializeObject<ReadingEnvironment>(U2A(Resource1.String1));
         }
         public void MakeHtml()
         {
