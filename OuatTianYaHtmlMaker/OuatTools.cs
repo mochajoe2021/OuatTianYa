@@ -18,8 +18,6 @@ namespace OuatTianYaHtmlMaker
     {
         internal class OuatTools
         {
-            static readonly RSAEncryptionPadding pkcs1 = RSAEncryptionPadding.Pkcs1;
-            static readonly RSASignaturePadding signpkcs1 = RSASignaturePadding.Pkcs1;
             static readonly HashAlgorithmName sha512 = HashAlgorithmName.SHA512;
 
             public string EncryptData(string text, string pubKeyfile)
@@ -28,7 +26,7 @@ namespace OuatTianYaHtmlMaker
 
                 byte[] datas = Encoding.UTF8.GetBytes(text);
                 RSA rsa = x509.GetRSAPublicKey();
-                byte[] edatas = rsa.Encrypt(datas, pkcs1);
+                byte[] edatas = rsa.Encrypt(datas, RSAEncryptionPadding.Pkcs1);
 
                 return Convert.ToBase64String(edatas);
             }
@@ -38,7 +36,7 @@ namespace OuatTianYaHtmlMaker
                 X509Certificate2 x509 = new X509Certificate2(prvKeyfile, pw);
                 byte[] edatas = Convert.FromBase64String(ciphertext);
                 RSA rsa = x509.GetRSAPrivateKey();
-                byte[] datas = rsa.Decrypt(edatas, pkcs1);
+                byte[] datas = rsa.Decrypt(edatas, RSAEncryptionPadding.Pkcs1);
 
                 return Encoding.UTF8.GetString(datas);
             }
@@ -47,7 +45,7 @@ namespace OuatTianYaHtmlMaker
                 X509Certificate2 x509 = new X509Certificate2(prvKeyfile, pw);
                 byte[] datas = Encoding.UTF8.GetBytes(text);
                 RSA rsa = x509.GetRSAPrivateKey();
-                byte[] sign = rsa.SignData(datas, sha512, signpkcs1);
+                byte[] sign = rsa.SignData(datas, sha512, RSASignaturePadding.Pkcs1);
 
                 return Convert.ToBase64String(sign);
             }
@@ -57,7 +55,7 @@ namespace OuatTianYaHtmlMaker
                 byte[] datas = Encoding.UTF8.GetString(text);
                 byte[] sign = Convert.FromBase64String(signstr);
                 RSA rsa = x509.GetRSAPublicKey();
-                bool verify = rsa.VerifyData(datas, sign, sha512, signpkcs1);
+                bool verify = rsa.VerifyData(datas, sign, sha512, RSASignaturePadding.Pkcs1);
 
                 return verify;
             }
