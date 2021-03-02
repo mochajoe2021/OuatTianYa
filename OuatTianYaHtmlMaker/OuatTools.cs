@@ -1,46 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OuatTianYaHtmlMaker
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Cryptography;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Text;
-    using System.Threading.Tasks;
+   
 
     namespace OuatTianYaHtmlMaker
     {
-        internal class OuatTools
+        public class OuatTools
         {
             static readonly HashAlgorithmName sha512 = HashAlgorithmName.SHA512;
 
-            public string EncryptData(string text, string pubKeyfile)
+            public static string EncryptData(string text, string pubKeyfile)
             {
                 X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
 
                 byte[] datas = Encoding.UTF8.GetBytes(text);
-                RSA rsa = x509.GetRSAPublicKey();
+                RSA rsa = (RSA)x509.GetRSAPublicKey(); 
                 byte[] edatas = rsa.Encrypt(datas, RSAEncryptionPadding.Pkcs1);
 
                 return Convert.ToBase64String(edatas);
             }
 
-            public string DecryptData(string ciphertext, string prvKeyfile, string pw)
+            public static string DecryptData(string ciphertext, string prvKeyfile, string pw)
             {
-                X509Certificate2 x509 = new X509Certificate2(prvKeyfile, pw);
+                X509Certificate2 x509 = new X509Certificate2(prvKeyfile, pw, X509KeyStorageFlags.Exportable);
                 byte[] edatas = Convert.FromBase64String(ciphertext);
-                RSA rsa = x509.GetRSAPrivateKey();
+                RSA rsa = x509.GetRSAPrivateKey();        
+                RSAParameters para = rsa.ExportParameters(true);
+                rsa.ImportParameters(para);
                 byte[] datas = rsa.Decrypt(edatas, RSAEncryptionPadding.Pkcs1);
-
-                return Encoding.UTF8.GetString(datas);
+                string ret = Encoding.UTF8.GetString(datas);
+                return ret;
             }
-            public string SignData(string text, string prvKeyfile, string pw)
+            public static string SignData(string text, string prvKeyfile, string pw)
             {
                 X509Certificate2 x509 = new X509Certificate2(prvKeyfile, pw);
                 byte[] datas = Encoding.UTF8.GetBytes(text);
@@ -49,10 +48,10 @@ namespace OuatTianYaHtmlMaker
 
                 return Convert.ToBase64String(sign);
             }
-            public bool VerifyData(string text, string pubKeyfile, string signstr)
+            public static bool VerifyData(string text, string pubKeyfile, string signstr)
             {
                 X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
-                byte[] datas = Encoding.UTF8.GetString(text);
+                byte[] datas = Encoding.UTF8.GetBytes(text);
                 byte[] sign = Convert.FromBase64String(signstr);
                 RSA rsa = x509.GetRSAPublicKey();
                 bool verify = rsa.VerifyData(datas, sign, sha512, RSASignaturePadding.Pkcs1);
