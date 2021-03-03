@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>
+		</title>
+		<style type="text/css">
+			textarea.Certificate{ width:50%; height:100%; border:thin double #990066;
+			float: left; }
+		</style>
+		<script type="text/javascript">
+		 function Cer() {
+			 var text = document.getElementById("CertificatePrv");
+			 var show = document.getElementById("show");
+				if (text.value == "") {
+ 					text.style.visibility = "visible";
+					show.style.visibility = "hidden";
+				} else {					
+					text.style.visibility = "hidden";
+					text.style.height = 0;
+					show.style.visibility = "visible";
+				}
+			} 
+		</script> 
+	</head>
+	<body>
+		<div>
+			<textarea row="6" class="Certificate" id="CertificatePrv" value="" onblur="Cer()"></textarea>
+			<span style="height:100px;float: right;visibility:hidden;" id="show">☆</span>
+		</div>		
+ </body >
+ </html>
