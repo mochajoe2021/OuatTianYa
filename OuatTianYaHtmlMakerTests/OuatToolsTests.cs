@@ -31,15 +31,15 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void EncryptDataTest()
         {
-            string edatas = OuatTools.EncryptData(TestText, Reader[0]);
+            string edatas = OuatTools.RSAEncryptData(TestText, Reader[0]);
             Assert.IsNotNull(edatas);
         }
 
         [TestMethod()]
         public void DecryptDataTest()
         {
-            string edatas = OuatTools.EncryptData(TestText, Reader[0]);
-            string datas = OuatTools.DecryptData(edatas, Writer[1], config[0]);
+            string edatas = OuatTools.RSAEncryptData(TestText, Reader[0]);
+            string datas = OuatTools.RSADecryptData(edatas, Writer[1], config[0]);
             Assert.IsNotNull(edatas);
             Assert.IsNotNull(datas);
             Assert.AreEqual(TestText, datas);
@@ -48,19 +48,67 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void SignDataTest()
         {
-            string sign = OuatTools.SignData(TestText, Writer[1], config[0]);
+            string sign = OuatTools.RSASignData(TestText, Writer[1], config[0]);
             Assert.IsNotNull(sign);
         }
 
         [TestMethod()]
         public void VerifyDataTest()
         {
-            string sign = OuatTools.SignData(TestText, Writer[1], config[0]);
-            bool verify = OuatTools.VerifyData(TestText, Writer[0], sign);
+            string sign = OuatTools.RSASignData(TestText, Writer[1], config[0]);
+            bool verify = OuatTools.RSAVerifyData(TestText, Writer[0], sign);
             Assert.IsNotNull(sign);
             Assert.IsTrue(verify);
         }
 
+        [TestMethod()]
+        public void AESEncryptDataTest()
+        {
+            string text = "!!!这是一个测试。This is a Test.!!!";
+            string key = "keyiskey";
+            string strIV = "ivisiv";
+            string etext = null;
+            etext = OuatTools.AESEncryptData(text, key, strIV);
+            Assert.IsNotNull(etext);
+        }
+        [TestMethod()]
+        public void AESEncryptData1MTest()
+        {
+            string text = "!!!这是一个测试。This is a Test.!!!".PadRight(1024 * 1024, 't');
+            string key = "keyiskey".PadRight(322, 'k');
+            string strIV = "ivisiv".PadRight(166, 'i');
+            string etext = null;
+            etext = OuatTools.AESEncryptData(text, key, strIV);
+            Assert.IsNotNull(etext);
+        }
 
+        [TestMethod()]
+        public void AESDecryptDataTest()
+        {
+            string  text = "!!!这是一个测试。This is a Test.!!!";
+            string text2 = null;
+            string key = "keyiskey";
+            string strIV = "ivisiv";
+            string etext = null;
+            etext = OuatTools.AESEncryptData(text, key, strIV);
+            text2= OuatTools.AESDecryptData(etext, key, strIV);
+            Assert.IsNotNull(etext);
+            Assert.IsNotNull(text2);
+            Assert.AreEqual(text, text2);
+        }
+        [TestMethod()]
+        public void AESDecryptData1MTest()
+        {
+            string text = "!!!这是一个测试。This is a Test.!!!".PadRight(1024 * 1024, '测');
+            string text2 = null;
+            string key = "keyiskey";
+            string strIV = "ivisiv";
+            string etext = null;
+            etext = OuatTools.AESEncryptData(text, key, strIV);
+            text2 = OuatTools.AESDecryptData(etext, key, strIV);
+            Assert.IsNotNull(etext);
+            Assert.IsNotNull(text2);
+            Assert.AreEqual(text, text2);
+        }
     }
 }
