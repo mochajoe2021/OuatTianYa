@@ -1,0 +1,87 @@
+{
+    "Author": "三语沫",
+    "BookTitle": "[右岸文字]暗恋直女学妹的日子",
+    "Introduction": "value",
+    "ChaptersNumber": "value",
+    "Producer": {
+        "ProducerName": "mochajoe",
+        "ProductionSoftware": "OuatTianYaHtmlMaker v1.0"
+    },
+    "Chapters": [
+        {
+            "Chapter": {
+                "No": "1",
+                "Title": "初见",
+                "Time": "2021年3月4日09点41分",
+                "Text": "内容1",
+                "Readers": [
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    },
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    },
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    }
+                ]
+            }
+        },
+        {
+            "Chapter": {
+                "No": "2",
+                "Title": "缘起",
+                "Time": "2021年3月4日09点45分",
+                "Text": "内容1",
+                "Readers": [
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    },
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    },
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    }
+                ]
+            }
+        },
+        {
+            "Chapter": {
+                "No": "3",
+                "Title": "相谈",
+                "Time": "2021年3月4日09点45分",
+                "Text": "内容1",
+                "Readers": [
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    },
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    },
+                    {
+                        "Name": "value",
+                        "Time": "value",
+                        "Reply": "value"
+                    }
+                ]
+            }
+        }
+    ]
+}
