@@ -17,27 +17,62 @@ namespace OuatTianYaHtmlMaker
         public class OuatTools
         {
             static readonly HashAlgorithmName sha512 = HashAlgorithmName.SHA512;
+            static int RSAMax = 256;
 
             public static string RSAEncryptData(string text, string pubKeyfile)
             {
-                X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
+                string ret;
+                try
+                {
+                    X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
 
-                byte[] datas = Encoding.UTF8.GetBytes(text);
-                RSA rsa = (RSA)x509.GetRSAPublicKey();
-                byte[] edatas = rsa.Encrypt(datas, RSAEncryptionPadding.Pkcs1);
+                    byte[] datas = Encoding.UTF8.GetBytes(text);
+                    byte[] buffer;
+                    RSA rsa = (RSA)x509.GetRSAPublicKey();
+                    int count = datas.Length / 256 + 1;
+                    StringBuilder sb1 = new StringBuilder();
+                    int copylen = RSAMax;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if ((datas.Length - i * RSAMax) < RSAMax)
+                        {
+                            copylen = datas.Length - i * RSAMax;
+                        }
 
-                return Convert.ToBase64String(edatas);
+                        buffer = new byte[copylen];
+                        Array.Copy(datas, i * RSAMax, buffer, 0, copylen);
+                        byte[] edatas = rsa.Encrypt(buffer, RSAEncryptionPadding.Pkcs1);
+                        ret = Convert.ToBase64String(edatas);
+                        sb1.Append(ret);
+                        sb1.Append(',');
+                    }
+                    ret = sb1.ToString();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    ret = null;
+                }
+                return ret;
             }
 
             public static string RSADecryptData(string ciphertext, string prvKeyfile, string pw)
             {
                 X509Certificate2 x509 = new X509Certificate2(prvKeyfile, pw, X509KeyStorageFlags.Exportable);
-                byte[] edatas = Convert.FromBase64String(ciphertext);
                 RSA rsa = x509.GetRSAPrivateKey();
                 RSAParameters para = rsa.ExportParameters(true);
                 rsa.ImportParameters(para);
-                byte[] datas = rsa.Decrypt(edatas, RSAEncryptionPadding.Pkcs1);
-                string ret = Encoding.UTF8.GetString(datas);
+                string ret;
+                byte[] datas;
+                string[] buffer = ciphertext.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                StringBuilder sb1 = new StringBuilder();
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    datas = rsa.Decrypt(Convert.FromBase64String(buffer[i]), RSAEncryptionPadding.Pkcs1);
+                    ret = Encoding.UTF8.GetString(datas);
+                    sb1.Append(ret);
+                }
+                ret = sb1.ToString();
                 return ret;
             }
             public static string RSASignData(string text, string prvKeyfile, string pw)
@@ -107,14 +142,23 @@ namespace OuatTianYaHtmlMaker
 
             public static string AESEncryptData(string text, string key, string strIV)
             {
-                byte[] datas = Encoding.UTF8.GetBytes(text);
                 byte[] bKey = new byte[32];
                 Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length)), bKey, bKey.Length);
                 byte[] bIV = new byte[16];
                 Array.Copy(Encoding.UTF8.GetBytes(strIV.PadRight(bIV.Length)), bIV, bIV.Length);
 
+                return AESEncryptData(text, bKey, bIV);
+            }
+
+            public static string AESEncryptData(string text, byte[] key, byte[] IV)
+            {
                 byte[] edatas = null;
                 string ret = null;
+
+                byte[] datas = Encoding.UTF8.GetBytes(text);
+                byte[] bKey = PaddingBytes(key, 32);
+                byte[] bIV = PaddingBytes(IV, 16);
+
                 using (Aes Aes = Aes.Create())
                 {
                     try
@@ -142,13 +186,42 @@ namespace OuatTianYaHtmlMaker
                 }
             }
 
+            private static byte[] PaddingBytes(byte[] source, int count, byte padding = (byte)'*')
+            {
+                byte[] bytes = new byte[count];
+                int copy = count;
+                for (int i = 0; i < count; i++)
+                {
+                    bytes[i] = padding;
+                }
+
+                if (source.Length <= count)
+                {
+                    copy = source.Length;
+                }
+
+                for (int i = 0; i < copy; i++)
+                {
+                    bytes[i] = source[i];
+                }
+                return bytes;
+            }
+
             public static string AESDecryptData(string etext, string key, string strVI)
             {
-                byte[] edatas = Convert.FromBase64String(etext);
+
                 byte[] bKey = new byte[32];
                 Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length)), bKey, bKey.Length);
                 byte[] bVI = new byte[16];
                 Array.Copy(Encoding.UTF8.GetBytes(strVI.PadRight(bVI.Length)), bVI, bVI.Length);
+                return AESDecryptData(etext, bKey, bVI);
+            }
+
+            public static string AESDecryptData(string etext, byte[] key, byte[] VI)
+            {
+                byte[] edatas = Convert.FromBase64String(etext);
+                byte[] bKey = PaddingBytes(key, 32);
+                byte[] bVI = PaddingBytes(VI, 16);
 
                 byte[] datas = null;
                 string ret = null;
@@ -173,7 +246,7 @@ namespace OuatTianYaHtmlMaker
                                     datas = tempMemory.ToArray();
                                 }
                             }
-                            ret=Encoding.UTF8.GetString(datas);
+                            ret = Encoding.UTF8.GetString(datas);
                         }
                     }
                     catch (Exception e)
@@ -182,11 +255,29 @@ namespace OuatTianYaHtmlMaker
                         datas = null;
                         ret = null;
                     }
-
                     return ret;
                 }
             }
 
+            public static string RsaSignAesEncryptData(string text, string ReaderPubkeyfile, string AuthorPrvkeyfile, string pw, out string eKeyIvSign)
+            {
+                byte[] key = HashAlgorithm.Create(sha512.Name).ComputeHash(Encoding.UTF8.GetBytes(text));
+                byte[] iv = HashAlgorithm.Create(sha512.Name).ComputeHash(Encoding.UTF8.GetBytes(new Random(DateTime.Now.Millisecond).ToString() + new X509Certificate2(ReaderPubkeyfile).GetNameInfo(X509NameType.SimpleName, false)));
+                string etext = AESEncryptData(text, key, iv);
+                string sign = RSASignData(text, AuthorPrvkeyfile, pw);
+                string asekeyiv = Convert.ToBase64String(key) + "," + Convert.ToBase64String(iv) + "," + sign;
+                StringBuilder sb1 = new StringBuilder();
+                eKeyIvSign=RSAEncryptData(asekeyiv, ReaderPubkeyfile);           
+                return etext;
+            }
+
+            public static bool RsaSignAesDecryptData(string etext, string AuthorPubkeyfile, string ReaderPrvkeyfile, string pw, string eKeyIvSign, out string text)
+            {
+                string[] keyIvSign = RSADecryptData(eKeyIvSign, ReaderPrvkeyfile, pw).Split(',');
+                text = AESDecryptData(etext, Convert.FromBase64String(keyIvSign[0]), Convert.FromBase64String(keyIvSign[1]));
+                bool verify = RSAVerifyData(text, AuthorPubkeyfile, keyIvSign[2]);
+                return verify;
+            }
         }
     }
 

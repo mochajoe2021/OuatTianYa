@@ -6,42 +6,42 @@ namespace OuatTianYaHtmlMaker
     public class Book
     {
         /// <summary>
-        /// 三语沫
+        /// 作者
         /// </summary>
         public string Author
         {
             get; set;
         }
         /// <summary>
-        /// [右岸文字]暗恋直女学妹的日子
+        /// 标题
         /// </summary>
         public string BookTitle
         {
             get; set;
         }
         /// <summary>
-        /// 
+        /// 简介
         /// </summary>
         public string Introduction
         {
             get; set;
         }
         /// <summary>
-        /// 
+        /// 总章节数
         /// </summary>
         public string ChaptersNumber
         {
             get; set;
         }
         /// <summary>
-        /// 
+        /// 制作人
         /// </summary>
         public Producer Producer
         {
             get; set;
         }
         /// <summary>
-        /// 
+        /// 全部章节
         /// </summary>
         public List<ChaptersItem> Chapters
         {
