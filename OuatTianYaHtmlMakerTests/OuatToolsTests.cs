@@ -25,7 +25,7 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
             Writer[1] = "OUATianya-Writer-Test.pfx";
             Reader[0] = "OUATianya-Reader-Test.cer";
             Reader[1] = "OUATianya-Reader-Test.pfx";
-            TestText = "---This is a Test.这是一个测试。---";
+            TestText = "---This is a Test.这是一个测试。--- C#";
             TestLongText = "!!!这是一个测试。This is a Test.!!!".PadRight(1024 * 1024 + new Random
 (DateTime.Now.Millisecond).Next(255), (char)new Random(DateTime.Now.Millisecond).Next(255));
             RSATestLongText = "!!!这是一个测试。This is a Test.!!!".PadRight(1024 * 5 + new Random
@@ -97,7 +97,7 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void AESDecryptDataTest()
         {
-            string text2 = null;
+            string text2 ;
             string key = "keyiskey";
             string strIV = "ivisiv";
             string etext = null;

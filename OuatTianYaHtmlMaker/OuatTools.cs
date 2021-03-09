@@ -140,14 +140,20 @@ namespace OuatTianYaHtmlMaker
             }
 
 
-            public static string AESEncryptData(string text, string key, string strIV)
+            public static string AESEncryptData(string text, string key, string strIV,char padding='*')
             {
-                byte[] bKey = new byte[32];
-                Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length)), bKey, bKey.Length);
-                byte[] bIV = new byte[16];
-                Array.Copy(Encoding.UTF8.GetBytes(strIV.PadRight(bIV.Length)), bIV, bIV.Length);
+                byte[] bKey, bIV;
+                PaddingKeyIV(key, strIV, padding, out bKey, out bIV);
 
                 return AESEncryptData(text, bKey, bIV);
+            }
+
+            private static void PaddingKeyIV(string key, string strIV, char padding, out byte[] bKey, out byte[] bIV)
+            {
+                bKey = new byte[32];
+                Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length, padding)), bKey, bKey.Length);
+                bIV = new byte[16];
+                Array.Copy(Encoding.UTF8.GetBytes(strIV.PadRight(bIV.Length, padding)), bIV, bIV.Length);
             }
 
             public static string AESEncryptData(string text, byte[] key, byte[] IV)
@@ -163,6 +169,7 @@ namespace OuatTianYaHtmlMaker
                 {
                     try
                     {
+                        Aes.Padding = PaddingMode.PKCS7;
                         using (MemoryStream Memory = new MemoryStream())
                         {
                             using (CryptoStream Encryptor = new CryptoStream(Memory, Aes.CreateEncryptor(bKey, bIV),
@@ -207,21 +214,18 @@ namespace OuatTianYaHtmlMaker
                 return bytes;
             }
 
-            public static string AESDecryptData(string etext, string key, string strVI)
+            public static string AESDecryptData(string etext, string key, string strIV,char padding='*')
             {
-
-                byte[] bKey = new byte[32];
-                Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length)), bKey, bKey.Length);
-                byte[] bVI = new byte[16];
-                Array.Copy(Encoding.UTF8.GetBytes(strVI.PadRight(bVI.Length)), bVI, bVI.Length);
-                return AESDecryptData(etext, bKey, bVI);
+                byte[] bKey, bIV;
+                PaddingKeyIV(key, strIV, padding, out bKey, out bIV);
+                return AESDecryptData(etext, bKey, bIV);
             }
 
-            public static string AESDecryptData(string etext, byte[] key, byte[] VI)
+            public static string AESDecryptData(string etext, byte[] key, byte[] IV)
             {
                 byte[] edatas = Convert.FromBase64String(etext);
                 byte[] bKey = PaddingBytes(key, 32);
-                byte[] bVI = PaddingBytes(VI, 16);
+                byte[] bIV = PaddingBytes(IV, 16);
 
                 byte[] datas = null;
                 string ret = null;
@@ -232,7 +236,7 @@ namespace OuatTianYaHtmlMaker
                     {
                         using (MemoryStream Memory = new MemoryStream(edatas))
                         {
-                            using (CryptoStream Decryptor = new CryptoStream(Memory, Aes.CreateDecryptor(bKey, bVI), CryptoStreamMode.Read))
+                            using (CryptoStream Decryptor = new CryptoStream(Memory, Aes.CreateDecryptor(bKey, bIV), CryptoStreamMode.Read))
                             {
                                 using (MemoryStream tempMemory = new MemoryStream())
                                 {

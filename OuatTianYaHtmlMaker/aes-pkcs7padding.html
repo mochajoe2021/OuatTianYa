@@ -2,48 +2,57 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>
-			AES
-		</title>
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js">
-		</script>
-		<script src="https://cdn.jsdelivr.net/npm/aes-js@3.1.2/index.js">
-		</script>
-		<script type="text/javascript">
-			$(function() {
+		<title>AES</title>
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/crypto-js.min.js"></script>
+		<script type="text/javascript">$(function() {
+				$('#input').text("This is a test ! 这是一个测试 ！"+Date());
 				$('#testme').click(function() {
-					var key = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-					var iv = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
+
+					var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
+					var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
 					var text = $('#input').val();
-					var textBytes = aesjs.utils.utf8.toBytes(text);
-					var array = [].slice.call(textBytes);
-					textBytes = aesjs.padding.pkcs7.pad(array);
-					var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
-					var encryptedBytes = aesCbc.encrypt(textBytes);
-					var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
-					console.log(encryptedHex);
-					var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
-					var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
-					var decryptedBytes = aesCbc.decrypt(encryptedBytes);
-					decryptedBytes = aesjs.padding.pkcs7.strip(decryptedBytes);
-					decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
-					console.log(decryptedText);
-					if (decryptedBytes.length>0) alert("Ok. "+decryptedBytes.length);
-					else alert ("Error.");
-					alert(decryptedText);
+					var etext = CryptoJS.AES.encrypt(text, key, {
+						iv: iv,
+						mode: CryptoJS.mode.CBC,
+						padding: CryptoJS.pad.Pkcs7
+					});
+
+					if (etext != null) alert("encrypt Ok. " + etext.toString().length);
+					else alert("encrypt Error.");
+
+					text = CryptoJS.AES.decrypt(etext, key, {
+						iv: iv,
+						mode: CryptoJS.mode.CBC,
+						padding: CryptoJS.pad.Pkcs7
+					});
+					text = text.toString(CryptoJS.enc.Utf8);
+					if (text != null) alert("decrypt Ok. " + text.length);
+					else alert("decrypt Error.");
+					alert(text);
+
+					var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
+					var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
+					var etext = 'mAIOTPlJX4OmAleJL3JJXkaM+sqEI3gNJg7TONP3nDPhsC+CbBO2fnZmcyu+oYFM';
+					var text = CryptoJS.AES.decrypt(etext, key, {
+						iv: iv,
+						mode: CryptoJS.mode.CBC,
+						padding: CryptoJS.pad.Pkcs7
+					});
+					text = text.toString(CryptoJS.enc.Utf8);
+					if (text != null) alert("decrypt Ok. " + text.length);
+					else alert("decrypt Error.");
+					alert(text);
+
 				})
-			});
-		</script>
+			});</script>
 	</head>
 	<body>
-		<label for="input">
-			AES Text to encrypt:
-		</label>
+		<label for="input">AES Text to encrypt:</label>
 		<br/>
-		<textarea id="input" name="input" type="text" rows=4 cols=70>This is a test ! 这是一个测试 ！</textarea>
+		<textarea id="input" name="input" type="text" rows=4 cols=70></textarea>
 		<br/>
 		<input id="testme" type="button" value="Test Me!!!" />
-		<br/>
-	</body>
+		<br/></body>
 
 </html>
