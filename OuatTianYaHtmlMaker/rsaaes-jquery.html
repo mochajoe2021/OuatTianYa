@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>
+			JavaScript RSA Encryption
+		</title>
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js">
+		</script>
+		<script src=" https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/crypto-js.js">
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-rc.1/bin/jsencrypt.js">
+		</script>
+		<script type="text/javascript">
+			// Call this code when the page is done loading.
+			$(function() {
+				$('#input').text("This is a test ! 这是一个测试 ！" + Date());
+				// Run a quick encryption/decryption when they click.
+				$('#testme').click(function() {
+
+					var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
+					var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
+					var text = $('#input').val();
+					var etext = CryptoJS.AES.encrypt(text, key, {
+						iv: iv,
+						mode: CryptoJS.mode.CBC,
+						padding: CryptoJS.pad.Pkcs7
+					});
+
+					if (etext != null) alert("aes encrypt Ok. " + etext.toString().length);
+					else alert("encrypt Error.");
+
+					etext = etext.toString();
+					// Encrypt with the public key...
+					var encrypt = new JSEncrypt();
+					encrypt.setPublicKey($('#pubkey').val());
+
+					var encrypted = encrypt.encrypt(etext);
+					if (!encrypted)
+						alert("rsa encrypt Error. mybe key length needs 4096.");
+					if (encrypted.length > 0) alert("rsa encrypt Ok. " + encrypted.toString().length);
+
+					// Decrypt with the private key...
+					var decrypt = new JSEncrypt();
+					decrypt.setPrivateKey($('#privkey').val());
+					var uncrypted = decrypt.decrypt(encrypted);
+
+					// Now a simple check to see if the round-trip worked.
+					if (uncrypted == etext) {
+						alert('Rsa解密工作正常。');				
+					} else {
+						alert('Rsa解密Something went wrong....');		
+					}
+					etext = uncrypted;
+
+					text = CryptoJS.AES.decrypt(etext, key, {
+						iv: iv,
+						mode: CryptoJS.mode.CBC,
+						padding: CryptoJS.pad.Pkcs7
+					});
+					text = text.toString(CryptoJS.enc.Utf8);
+					if (text != null) alert("decrypt Ok. " + text.length);
+					else alert("decrypt Error.");
+					alert(text);
+
+					var sign = new JSEncrypt();
+					sign.setPrivateKey($('#privkey').val());
+					var signature = sign.sign($('#input').val(), CryptoJS.SHA256, "sha256");
+					// Verify with the public key...
+					var verify = new JSEncrypt();
+					verify.setPublicKey($('#pubkey').val());
+					var verified = verify.verify($('#input').val(), signature, CryptoJS.SHA256);
+
+					// Now a simple check to see if the round-trip worked.
+					if (verified) {
+						alert('签字验证正常');
+					} else {
+						alert('Something went wrong....');
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<label for="privkey">
+			Private Key
+		</label>
+		<br/>
+		<textarea id="privkey" rows="15" cols="65">
+			-----BEGIN RSA PRIVATE KEY----- MIICXQIBAAKBgQCnzr1LEtftaSRvla9b9y0r2/uZ/UXVpET4BCN9vZKaD2FILAHa
+			IotpfAdRf+lYDa29jiQ2YE8G4f3WveP5kSzbHAhaEmAAYuvasOin38/JayLpVQ+R 7RIxiak2m2ky1Sl4hWSK78POTfb9JvonW8LTjtrKHX7xKo4EXYVjFBnZFwIDAQAB
+			AoGAXpMeDFmqaJuBdYIfOu2r/7QTsU4VNbtHQ6DRf+R/42QXp91ljdM6T1Efrscw c/gBm3uo3RyabX6g2Y5cFiPD6y/QCZruVm64LMwP7VhMS7kZa+POX5fapWyT61hV
+			M7zf4jutPYEqsM65tuW8bOUqRm40Ioy/DRzuH1rqwciClkECQQDSyNpK9sl7IG+b 3/EI3VsODeYFmfvjq5Q8AAJ51Hkl/NSFfCGesUwyFio79532zoNS99MG0GGA25Oh
+			XJFeZJeVAkEAy83SiofBp6baqwqlJoCgHitS10oXhLM0vDambxep3g7Cv4mIbwMw 7J6i54yVBvocRsq6wYD4fG39HskVql3S+wJBAI7v+WgAdpzyX/0aHX/fa9HaBvQh
+			ebjoL3uIniUzunvSOePTS5Ertfn5IebMgehOHqvytr3WLWiOfkxcU4/pMwkCQQDB JzCDWmaPHfPgZxZeh0k5TpYUtIPVoII6XxEd+K9lZVftb8t+aufTWgXKrdIP6rsh
+			3MFi43iddSCQLMP70zBBAkASN682crHzlPN+q+J88ge9MFiz/xUZMffcv/R3xfWh Vzws3/+HPt9PmOlUyIP0T5qi4gqXSYsxwm9MmKW+tBXx
+			-----END RSA PRIVATE KEY-----
+		</textarea>
+		<br/>
+		<label for="pubkey">
+			Public Key
+		</label>
+		<br/>
+		<textarea id="pubkey" rows="15" cols="65">
+			-----BEGIN PUBLIC KEY----- MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnzr1LEtftaSRvla9b9y0r2/uZ
+			/UXVpET4BCN9vZKaD2FILAHaIotpfAdRf+lYDa29jiQ2YE8G4f3WveP5kSzbHAha EmAAYuvasOin38/JayLpVQ+R7RIxiak2m2ky1Sl4hWSK78POTfb9JvonW8LTjtrK
+			HX7xKo4EXYVjFBnZFwIDAQAB -----END PUBLIC KEY-----
+		</textarea>
+		<br/>
+		<label for="input">
+			Text to encrypt:
+		</label>
+		<br/>
+		<textarea id="input" name="input" type="text" rows=4 cols=70>
+			This is a test!这是一个测试！
+		</textarea>
+		<br/>
+		<input id="testme" type="button" value="Test Me!!!" />
+		<br/>
+	</body>
+
+</html>
