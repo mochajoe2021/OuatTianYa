@@ -162,7 +162,7 @@ namespace OuatTianYaHtmlMaker
                 byte[] edatas = null;
                 string ret = null;
 
-                byte[] datas = Encoding.UTF8.GetBytes(text);
+                byte[] datas = Encoding.UTF8.GetBytes(text);                
                 byte[] bKey = PaddingBytes(key, 32);
                 byte[] bIV = PaddingBytes(IV, 16);
 
@@ -281,6 +281,8 @@ namespace OuatTianYaHtmlMaker
                 string name = new X509Certificate2(ReaderPubkeyfile).GetNameInfo(X509NameType.SimpleName, false);
                 byte[] key = getRandomBytes(text);
                 byte[] iv = getRandomBytes(name);
+                key= PaddingBytes(key, 32);
+                iv = PaddingBytes(iv, 16);
                 string etext = AESEncryptData(text, key, iv);
                 string sign = RSASignData(text, AuthorPrvkeyfile, pw);
                 eSign = AESEncryptData(sign, key, iv);
