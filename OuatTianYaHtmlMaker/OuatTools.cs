@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OuatTianYaHtmlMaker
@@ -140,7 +141,7 @@ namespace OuatTianYaHtmlMaker
             }
 
 
-            public static string AESEncryptData(string text, string key, string strIV,char padding='*')
+            public static string AESEncryptData(string text, string key, string strIV, char padding = '*')
             {
                 byte[] bKey, bIV;
                 PaddingKeyIV(key, strIV, padding, out bKey, out bIV);
@@ -214,7 +215,7 @@ namespace OuatTianYaHtmlMaker
                 return bytes;
             }
 
-            public static string AESDecryptData(string etext, string key, string strIV,char padding='*')
+            public static string AESDecryptData(string etext, string key, string strIV, char padding = '*')
             {
                 byte[] bKey, bIV;
                 PaddingKeyIV(key, strIV, padding, out bKey, out bIV);
@@ -262,24 +263,38 @@ namespace OuatTianYaHtmlMaker
                     return ret;
                 }
             }
-
-            public static string RsaSignAesEncryptData(string text, string ReaderPubkeyfile, string AuthorPrvkeyfile, string pw, out string eKeyIvSign)
+            private static byte[] getRandomBytes(string text = "RandomBytes")
             {
-                byte[] key = HashAlgorithm.Create(sha512.Name).ComputeHash(Encoding.UTF8.GetBytes(text));
-                byte[] iv = HashAlgorithm.Create(sha512.Name).ComputeHash(Encoding.UTF8.GetBytes(new Random(DateTime.Now.Millisecond).ToString() + new X509Certificate2(ReaderPubkeyfile).GetNameInfo(X509NameType.SimpleName, false)));
+                byte[] ret;
+                string head = new Random().Next(1, int.MaxValue / 2).ToString();
+                Thread.Sleep(5);
+                string taill = new Random().Next(int.MinValue / 2, int.MaxValue).ToString();
+                ret = HashAlgorithm.Create(sha512.Name)
+                    .ComputeHash(Encoding.UTF8.GetBytes(text));
+                ret = HashAlgorithm.Create(sha512.Name)
+                    .ComputeHash(Encoding.UTF8.GetBytes(head + ret + taill));
+                return ret;
+            }
+
+            public static string RsaSignAesEncryptData(string text, string ReaderPubkeyfile, string AuthorPrvkeyfile, string pw, out string eKeyIv, out string eSign)
+            {
+                string name = new X509Certificate2(ReaderPubkeyfile).GetNameInfo(X509NameType.SimpleName, false);
+                byte[] key = getRandomBytes(text);
+                byte[] iv = getRandomBytes(name);
                 string etext = AESEncryptData(text, key, iv);
                 string sign = RSASignData(text, AuthorPrvkeyfile, pw);
-                string asekeyiv = Convert.ToBase64String(key) + "," + Convert.ToBase64String(iv) + "," + sign;
-                StringBuilder sb1 = new StringBuilder();
-                eKeyIvSign=RSAEncryptData(asekeyiv, ReaderPubkeyfile);           
+                eSign = AESEncryptData(sign, key, iv);
+                string asekeyiv = Convert.ToBase64String(key) + "," + Convert.ToBase64String(iv);
+                eKeyIv = RSAEncryptData(asekeyiv, ReaderPubkeyfile);
                 return etext;
             }
 
-            public static bool RsaSignAesDecryptData(string etext, string AuthorPubkeyfile, string ReaderPrvkeyfile, string pw, string eKeyIvSign, out string text)
+            public static bool RsaSignAesDecryptData(string etext, string AuthorPubkeyfile, string ReaderPrvkeyfile, string pw, string eKeyIv, string eSign, out string text)
             {
-                string[] keyIvSign = RSADecryptData(eKeyIvSign, ReaderPrvkeyfile, pw).Split(',');
-                text = AESDecryptData(etext, Convert.FromBase64String(keyIvSign[0]), Convert.FromBase64String(keyIvSign[1]));
-                bool verify = RSAVerifyData(text, AuthorPubkeyfile, keyIvSign[2]);
+                string[] keyIv = RSADecryptData(eKeyIv, ReaderPrvkeyfile, pw).Split(',');
+                text = AESDecryptData(etext, Convert.FromBase64String(keyIv[0]), Convert.FromBase64String(keyIv[1]));
+                string sign = AESDecryptData(eSign, Convert.FromBase64String(keyIv[0]), Convert.FromBase64String(keyIv[1]));
+                bool verify = RSAVerifyData(text, AuthorPubkeyfile, sign);
                 return verify;
             }
         }

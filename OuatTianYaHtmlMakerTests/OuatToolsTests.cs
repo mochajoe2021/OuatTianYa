@@ -26,9 +26,9 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
             Reader[0] = "OUATianya-Reader-Test.cer";
             Reader[1] = "OUATianya-Reader-Test.pfx";
             TestText = "---This is a Test.这是一个测试。--- C#";
-            TestLongText = "!!!这是一个测试。This is a Test.!!!".PadRight(1024 * 1024 + new Random
+            TestLongText = "!!!这是一个测试。This is a Test.!!! C#".PadRight(1024 * 1024 + new Random
 (DateTime.Now.Millisecond).Next(255), (char)new Random(DateTime.Now.Millisecond).Next(255));
-            RSATestLongText = "!!!这是一个测试。This is a Test.!!!".PadRight(1024 * 5 + new Random
+            RSATestLongText = "!!!这是一个测试。This is a Test.!!! C#".PadRight(1024 * 5 + new Random
           (DateTime.Now.Millisecond).Next(255), (char)new Random(DateTime.Now.Millisecond).Next(255));
         }
         [TestMethod()]
@@ -124,11 +124,12 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void MakeChapterTest()
         {
-            string eText = OuatTools.RsaSignAesEncryptData(TestLongText, Reader[0], Writer[1], config[0], out string eKeyIvSign);
-            bool verify = OuatTools.RsaSignAesDecryptData(eText, Writer[0], Reader[1], config[1], eKeyIvSign, out string text2);
-
+            string eText = OuatTools.RsaSignAesEncryptData(TestText, Reader[0], Writer[1], config[0], out string eKeyIv,out string eSign);
+            bool verify = OuatTools.RsaSignAesDecryptData(eText, Writer[0], Reader[1], config[1], eKeyIv,eSign ,out string text2);
+            
             Assert.IsNotNull(eText);
-            Assert.IsNotNull(eKeyIvSign);
+            Assert.IsNotNull(eKeyIv);
+            Assert.IsNotNull(eSign);
             Assert.IsNotNull(text2);
             Assert.IsTrue(verify);
             Assert.AreEqual(TestLongText, text2);
