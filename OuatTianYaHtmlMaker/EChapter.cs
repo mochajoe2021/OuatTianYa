@@ -1,27 +1,33 @@
-﻿//如果好用，请收藏地址，帮忙分享。
-
-namespace OuatTianYaHtmlMaker
+﻿namespace OuatTianYaHtmlMaker
 {
-    public class ReadersItem2
+
+    public class EChapter
     {
         /// <summary>
         /// 
         /// </summary>
-        public string Name
+        public string Number
         {
             get; set;
         }
         /// <summary>
         /// 
         /// </summary>
-        public string Time
+        public string Etext
         {
             get; set;
         }
         /// <summary>
         /// 
         /// </summary>
-        public string Reply
+        public string Ekey
+        {
+            get; set;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Esign
         {
             get; set;
         }

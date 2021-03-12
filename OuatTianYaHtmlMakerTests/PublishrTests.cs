@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using OuatTianYaHtmlMaker;
 
@@ -10,17 +10,25 @@ using System.Threading.Tasks;
 
 namespace OuatTianYaHtmlMaker.Tests
 {
-    [TestFixture()]
+    [TestClass()]
     public class PublishrTests
     {
-        [Test()]
+        [TestMethod()]
         public void PublishrTest()
         {
             Publishr ps = new Publishr();
-            Assert.NotNull(ps.Re.Author);
-            Assert.NotNull(ps.Re.Title);
-            Assert.AreEqual("三语沫", ps.Re.Author);
-            
+            Assert.IsNotNull(ps.MjBook.AuthorName);
+            Assert.IsNotNull(ps.MjBook.Title);
+            Assert.AreEqual("三语沫", ps.MjBook.AuthorName);
+        }
+
+        [TestMethod()]
+        public void MakeHtmlTest()
+        {
+            Publishr ps = new Publishr();
+            Assert.IsNotNull(ps.MjBook.AuthorName);
+            Assert.IsNotNull(ps.MjBook.Title);
+            Assert.AreEqual("三语沫", ps.MjBook.AuthorName);
         }
     }
 }

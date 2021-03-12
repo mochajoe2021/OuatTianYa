@@ -1,5 +1,4 @@
-﻿//如果好用，请收藏地址，帮忙分享。
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OuatTianYaHtmlMaker
 {
@@ -36,7 +35,7 @@ namespace OuatTianYaHtmlMaker
         /// <summary>
         /// 
         /// </summary>
-        public List<ReadersItem2> Readers
+        public List<Reader> Readers
         {
             get; set;
         }

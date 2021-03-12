@@ -1,24 +1,21 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using OuatTianYaHtmlMaker.OuatTianYaHtmlMaker;
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
+
+namespace OuatTianYaHtmlMaker.Tests
 {
     [TestClass()]
     public class OuatToolsTests
     {
-        string[] config;
-        string[] Writer = new string[2];
-        string[] Reader = new string[2];
-        string TestText, TestLongText, RSATestLongText;
-        [TestInitialize]
-        public void Begin()
+        static string[] config;
+        static string[] Writer = new string[2];
+        static string[] Reader = new string[2];
+        static string TestText;
+        static string TestLongText;
+        static string RSATestLongText;
+        [ClassInitialize()]
+        public static void ClassInitialize(TestContext testContext)
         {
             config = System.IO.File.ReadAllLines("TestConfig.user");
             Writer[0] = "OUATianya-Writer-Test.cer";
@@ -31,6 +28,7 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
             RSATestLongText = "!!!这是一个测试。This is a Test.!!! C#".PadRight(1024 * 5 + new Random
           (DateTime.Now.Millisecond).Next(255), (char)new Random(DateTime.Now.Millisecond).Next(255));
         }
+
         [TestMethod()]
         public void RSAEncryptDataTest()
         {
@@ -97,7 +95,7 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void AESDecryptDataTest()
         {
-            string text2 ;
+            string text2;
             string key = "keyiskey";
             string strIV = "ivisiv";
             string etext = null;
@@ -124,15 +122,51 @@ namespace OuatTianYaHtmlMaker.OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void MakeChapterTest()
         {
-            string eText = OuatTools.RsaSignAesEncryptData(TestText, Reader[0], Writer[1], config[0], out string eKeyIv,out string eSign);
-            bool verify = OuatTools.RsaSignAesDecryptData(eText, Writer[0], Reader[1], config[1], eKeyIv,eSign ,out string text2);
-            
+            string eText = OuatTools.RsaSignAesEncryptData(TestLongText, Reader[0], Writer[1], config[0], out string eKeyIv, out string eSign);
+            bool verify = OuatTools.RsaSignAesDecryptData(eText, Writer[0], Reader[1], config[1], eKeyIv, eSign, out string text2);
+
             Assert.IsNotNull(eText);
             Assert.IsNotNull(eKeyIv);
             Assert.IsNotNull(eSign);
             Assert.IsNotNull(text2);
             Assert.IsTrue(verify);
             Assert.AreEqual(TestLongText, text2);
+        }
+
+        [TestMethod()]
+        public void U2ATest()
+        {
+            string s1 = OuatTools.A2U(TestText);
+            string s2 = OuatTools.U2A(s1);
+
+            Assert.IsNotNull(s1);
+            Assert.IsNotNull(s2);
+            Assert.AreEqual(TestText, s2);
+        }
+
+        [TestMethod()]
+        public void U2ALongTextTest()
+        {
+            string s1 = OuatTools.A2U(TestLongText);
+            string s2 = OuatTools.U2A(s1);
+
+            Assert.IsNotNull(s1);
+            Assert.IsNotNull(s2);
+            Assert.AreEqual(TestLongText, s2);
+        }
+
+        [TestMethod()]
+        public void A2UTest()
+        {
+            string s1 = OuatTools.A2U(TestText);
+            Assert.IsNotNull(s1);
+        }
+
+        [TestMethod()]
+        public void A2ULongTextTest()
+        {
+            string s1 = OuatTools.A2U(TestLongText);
+            Assert.IsNotNull(s1);
         }
     }
 }

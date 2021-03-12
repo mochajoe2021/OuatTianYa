@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace OuatTianYaHtmlMaker
+﻿namespace OuatTianYaHtmlMaker
 {
-    public class ChapterItem
+    public class Reader
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name
+        {
+            get; set;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -12,20 +17,11 @@ namespace OuatTianYaHtmlMaker
             get; set;
         }
         /// <summary>
-        /// 内容
+        /// 
         /// </summary>
-        public string Text
-        {
-            get; set;
-        }
-        /// <summary>
-        /// 读者们
-        /// </summary>
-        public List<ReadersItem> Readers
+        public string Reply
         {
             get; set;
         }
     }
-
-
 }
