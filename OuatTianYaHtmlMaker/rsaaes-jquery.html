@@ -17,8 +17,10 @@
 				$('#input').text("This is a test ! 这是一个测试 ！" + Date());
 				// Run a quick encryption/decryption when they click.
 				$('#rsaaes').click(function() {
-					var etext = 'TVHvRRaEuElYykFdc8LCDE63hu41nKSRZBRNb70/NBIN6LeXNFLqdWeTpRzWp76J';
-					var ekeyiv = 'dsb6TjETQpilRyJtT7HeX7Tj+LTL2jNgYK7pPy1qFrP6R5hpCzNGgDrQ5BHN2DKTJSekehn5gXZteOucfbhen2BW/TC6cSUpStrIhF724Dupy9zU0acqz9VSPyevKQ3FlFzAJt7NZoc3hMWekD2mq7xKQJ0cVqh8XidOlV/WesU3l+XR87u+0tEW4StTXFBtU0BKMXcHiaA12CM/5BsqUJ7NuO6EGjK5vQ3jKsv2wU9OVts6Qgyo9/Hmgk4Ftea/UoICQv+yAZcxCTGAmxMjlxuG4LRpZNFWlQRVBr7CuWH5Uj7ChhvXRChqVsW++Y5Xf0C8loWZepDFBC7JPos9qw3hWwkToReH85ElsHRWnWYYNQVoGM3VZ7akAdvEFC8Fo/ygGVyAsssoo/RjL35Rhwe3/vrhhXWzedDzcjPMhOkb5PA08ck3tiglkgMJZcOqnoWCmSFyx6jsAggWtXoond+YQGJ4iR/xLrr8/Fo5K/8KtX+nvpqYOPux3xCVwL5MePePj4LuPPVRGHtbjVKnJquf5vY+yVwGFbzoU1ViJGpG2G/PvzAhJ3ZdzGuWkkTp3KeZ1oQHkoSCBp4BKzI0Mi64NI5EAW4vODs/kI4VLiZiTYU7btTOhcyjnZWElZkOd5CcUXGPJyIPRkAY1sPDc+zV8bodTxXAr51teM32Odw=';
+					var etext = 'udpkxOYkw6efjvKr3EidVqRz3dMdEa7c/jkmlc8RmaSA1NTJBXOP2SqHbIt0Nyje';
+					var ekeyiv = 'Yurs5Uqf2DRiVBNKvcQ9aY1+AOwoAeeFUXlUM0RUJfls5dVocJlJEteNadCz1GabLjAL7+U1drGYgQCnS36jg9xwhoeG+Kd3kJGX3IsOcXf7H0xsM7Zwt+XLMVRBGGIe+36sDejHSn+Zf5F8iiFVuZt9gXtkCnCNwUXQo6vn/QVvz8PlsEMCtVWr6/oo2qzE/wCVTw/ktgY1Fm+XFzqu9fM6Q0gRKz3SIaiw19wBddoVTLoDG1+bJnqndQQ+QDOuTb2/PHTKK0KLYph/xqn7+kmWCY4FZywlPwDTcp3z/veyNYX92YITkp5KXTuE1J0ELF41BcLIOUlshb6zrSZrj2LxHKuuKuZ8elPes1q92eGXWAj5kq6mkaN+DrS24N4jdvwx91PbZIiK7jGgfpXoYCvX7Yhm2rAuIlNe8NvYLeQqd6vydawx/6gTsFzh1ZN8JDWttikoaEpd+YYIxtczZs0yqTSLAB9OhKhRC4DQBsUbOKk6e31qSzcovF5s1oL++pVmmZEC7c4XYyy3Nlg8cSBtZlPuCW5BTgPdFJh4+jCrfDspL7geM0VOXh/jD5Y/fAdXAvx+xtF7RN5A8/8lV5juHJgwUj/tO9kB59tMqINNSQ5Dt59UERCWsFV8MmwLFBKmqfY154qaDT0qsry6RmQyJc2sRfUsW6T6GCLhqMs=';
+					var esign='wXnDEkrqgZi3Sh+oFwWL1/BRxIfMqLmPrJcLbZrgj7N3q5HCKNgXHE18bRfkc6ekfcxDe2enGpS63KYx+LeZSRK1DSyQx8FdcgD+7a7PgKvcnaIvn9aIOmOslkiDXgo9NU1XzF8lb/HJ3cwI8ndeBuk15TXYJ7GMSPVPMv9+13QrmlYI1wv/oXGMV/Cn5jY9BgzoqxyPJz2Fe5BWngbr+gIAT/rOkOVnm5SdPfJWzs29A1T7MDJo3xNbMngkBC5OKaRRDfBzX6BbbmcrP6JpSiIyduqr1pIJJkaW+A8qR8GblYj5Pbvidj0tqeprpME9V9UWxGmzA9U1qUzZH4Eza6V7marJjcO1m7k3kEIcIbtrN06rkZ0YJUx9rK21yaqM7S2Trur66xopSiYF6OepSIubB7b6wjLBTP5LEvOI1O6fDVP7hQ4BV+cISqfiNdsnpwvJ9um/M2nawNNhHSxKKiOnLsf55QQjhpQRCflGxQ3FxHN0bh67FyhhpVdTF/LUTXZOKn9W6PtkJybyjVO0umB+Awi2yZOQUArbgOnC3mGsd9zFbwKGBJVlaREFXBvsRuwJivxdQKJgOcxPLEkXwpGzt2QSPILYpkhPw5jE7RGyE7bMOGCaWdq9UWK4qcHKPnMQqqeaoRTyBcQMd+HBMLTE/UVB1NFQi6NPW3tsfeVHC+DkyKqVeZvnc8X3oKw8uCnxdW/t6RBr0//4CfUxlNJzmZPU1+SWEcMIBZf2EdWGtg+JrZW8k66tp6mz8+cqF+xzHx35IpJORKEFA23rkq64e4UyhhUEhObohqte9ZdNfS2gO5YSFLEboCbE6TISPMLSBHhK48eGjGeRaG1EpbKdL2TEzIbc/Qgr9FGEV7+jlCHc/j4BGN/8KdDoCbDM5hD16TTL3imcV2xySrLG7Q==';
+					
 					var decrypt = new JSEncrypt();
 					decrypt.setPrivateKey($('#privkey').val());
 					var keyiv = decrypt.decrypt(ekeyiv);
@@ -38,100 +40,51 @@
 						padding: CryptoJS.pad.Pkcs7
 					});
 					text = text.toString(CryptoJS.enc.Utf8);
-					alert(text);
-
-				});
-				$('#testme').click(function() {
-
-					var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
-					var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
-					var text = $('#input').val();
-					var etext = CryptoJS.AES.encrypt(text, key, {
+					
+					
+					var sign = CryptoJS.AES.decrypt(esign, key, {
 						iv: iv,
 						mode: CryptoJS.mode.CBC,
 						padding: CryptoJS.pad.Pkcs7
 					});
-
-					if (etext != null) alert("aes encrypt Ok. " + etext.toString().length);
-					else alert("encrypt Error.");
-
-					etext = etext.toString();
-					// Encrypt with the public key...
-					var encrypt = new JSEncrypt();
-					encrypt.setPublicKey($('#pubkey').val());
-
-					var encrypted = encrypt.encrypt(etext);
-					if (!encrypted) alert("rsa encrypt Error. mybe key length needs 4096.");
-					if (encrypted.length > 0) alert("rsa encrypt Ok. " + encrypted.toString().length);
-
-					// Decrypt with the private key...
-					var decrypt = new JSEncrypt();
-					decrypt.setPrivateKey($('#privkey').val());
-					var uncrypted = decrypt.decrypt(encrypted);
-
-					// Now a simple check to see if the round-trip worked.
-					if (uncrypted == etext) {
-						alert('Rsa解密工作正常。');
-					} else {
-						alert('Rsa解密Something went wrong....');
-					}
-					etext = uncrypted;
-
-					text = CryptoJS.AES.decrypt(etext, key, {
-						iv: iv,
-						mode: CryptoJS.mode.CBC,
-						padding: CryptoJS.pad.Pkcs7
-					});
-					text = text.toString(CryptoJS.enc.Utf8);
-					if (text != null) alert("decrypt Ok. " + text.length);
-					else alert("decrypt Error.");
-					alert(text);
-
-					var sign = new JSEncrypt();
-					sign.setPrivateKey($('#privkey').val());
-					var signature = sign.sign($('#input').val(), CryptoJS.SHA256, "sha256");
-					// Verify with the public key...
+					sign = sign.toString(CryptoJS.enc.Utf8);
+					 
+									 
 					var verify = new JSEncrypt();
-					verify.setPublicKey($('#pubkey').val());
-					var verified = verify.verify($('#input').val(), signature, CryptoJS.SHA256);
-
-					// Now a simple check to see if the round-trip worked.
+					verify.setPublicKey($('#signpubkey').val());
+					var verified = verify.verify(text, sign, CryptoJS.SHA512);
+					 
 					if (verified) {
-						alert('签字验证正常');
+						alert('rsa aes 解密和签字验证正常。将显示文本。');
+						alert(text);
 					} else {
 						alert('Something went wrong....');
 					}
-				});
-			});
+
+				});	
+			});				
 		</script>
 	</head>
 	<body>
 		<label for="privkey">
-			Private Key
+			Decrypt Private Key
 		</label>
 		<br/>
 		<textarea id="privkey" rows="15" cols="65">
-			Need PRIVATE KEY
+			Need Decrypt PRIVATE KEY
 		</textarea>
 		<br/>
-		<label for="pubkey">
-			Public Key
+
+		<label for="singpubkey">
+			Sign Public Key
 		</label>
 		<br/>
-		<textarea id="pubkey" rows="15" cols="65">
-			Need PUBLIC KEY
+		<textarea id="signpubkey" rows="15" cols="65">
+			Need Sign PUBLIC KEY
 		</textarea>
-		<br/>
-		<label for="input">
-			Text to encrypt:
-		</label>
-		<br/>
-		<textarea id="input" name="input" type="text" rows=4 cols=70>
-			This is a test!这是一个测试！
-		</textarea>
-		<br/>
+		<br/>	
+		<br/>		
 		<input id="rsaaes" type="button" value="RasAes Test!!!" />
-		<input id="testme" type="button" value="Test Me!!!" />
 		<br/>
 	</body>
 
