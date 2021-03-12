@@ -1,58 +1,59 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>AES</title>
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/crypto-js.min.js"></script>
-		<script type="text/javascript">$(function() {
-				$('#input').text("This is a test ! 这是一个测试 ！"+Date());
-				$('#testme').click(function() {
+<head>
+    <meta charset="utf-8" />
+    <title>AES</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/crypto-js.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+        $('#input').text("This is a test ! 这是一个测试 ！"+Date());
+        $('#testme').click(function() {
 
-					var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
-					var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
-					var text = $('#input').val();
-					var etext = CryptoJS.AES.encrypt(text, key, {
-						iv: iv,
-						mode: CryptoJS.mode.CBC,
-						padding: CryptoJS.pad.Pkcs7
-					});
+        var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
+        var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
+        var text = $('#input').val();
+        var etext = CryptoJS.AES.encrypt(text, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+        });
 
-					if (etext != null) alert("encrypt Ok. " + etext.toString().length);
-					else alert("encrypt Error.");
+        if (etext != null) alert("encrypt Ok. " + etext.toString().length);
+        else alert("encrypt Error.");
 
-					text = CryptoJS.AES.decrypt(etext, key, {
-						iv: iv,
-						mode: CryptoJS.mode.CBC,
-						padding: CryptoJS.pad.Pkcs7
-					});
-					text = text.toString(CryptoJS.enc.Utf8);
-					if (text != null) alert("decrypt Ok. " + text.length);
-					else alert("decrypt Error.");
-					alert(text);
+        text = CryptoJS.AES.decrypt(etext, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+        });
+        text = text.toString(CryptoJS.enc.Utf8);
+        if (text != null) alert("decrypt Ok. " + text.length);
+        else alert("decrypt Error.");
+        alert(text);
 
-					var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
-					var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
-					var etext = 'mAIOTPlJX4OmAleJL3JJXkaM+sqEI3gNJg7TONP3nDPhsC+CbBO2fnZmcyu+oYFM';
-					var text = CryptoJS.AES.decrypt(etext, key, {
-						iv: iv,
-						mode: CryptoJS.mode.CBC,
-						padding: CryptoJS.pad.Pkcs7
-					});
-					text = text.toString(CryptoJS.enc.Utf8);
-					if (text != null) alert("decrypt Ok. " + text.length);
-					else alert("decrypt Error.");
-					alert(text);
+        var key = CryptoJS.enc.Base64.parse('a2V5aXNrZXkqKioqKioqKioqKioqKioqKioqKioqKio=');
+        var iv = CryptoJS.enc.Base64.parse('aXZpc2l2KioqKioqKioqKg==');
+        var etext = 'mAIOTPlJX4OmAleJL3JJXkaM+sqEI3gNJg7TONP3nDPhsC+CbBO2fnZmcyu+oYFM';
+        var text = CryptoJS.AES.decrypt(etext, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+        });
+        text = text.toString(CryptoJS.enc.Utf8);
+        if (text != null) alert("decrypt Ok. " + text.length);
+        else alert("decrypt Error.");
+        alert(text);
 
-				})
-			});</script>
-	</head>
-	<body>
-		<label for="input">AES Text to encrypt:</label>
-		<br/>
-		<textarea id="input" name="input" type="text" rows=4 cols=70></textarea>
-		<br/>
-		<input id="testme" type="button" value="Test Me!!!" />
-		<br/></body>
-
+        })
+        });</script>
+</head>
+<body>
+    <label for="input">AES Text to encrypt:</label>
+    <br />
+    <textarea id="input" name="input" type="text" rows=4 cols=70></textarea>
+    <br />
+    <input id="testme" type="button" value="Test Me!!!" />
+    <br />
+</body>
 </html>

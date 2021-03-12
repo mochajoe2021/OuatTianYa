@@ -5,12 +5,13 @@ namespace OuatTianYaHtmlMaker
     public class Chapter
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string No
         {
             get; set;
         }
+
         /// <summary>
         /// 初见
         /// </summary>
@@ -18,6 +19,7 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
         /// 2021年3月4日09点41分
         /// </summary>
@@ -25,6 +27,7 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
         /// 内容1
         /// </summary>
@@ -32,8 +35,9 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public List<Reader> Readers
         {

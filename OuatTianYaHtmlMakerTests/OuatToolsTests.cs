@@ -2,18 +2,18 @@
 
 using System;
 
-
 namespace OuatTianYaHtmlMaker.Tests
 {
     [TestClass()]
     public class OuatToolsTests
     {
-        static string[] config;
-        static string[] Writer = new string[2];
-        static string[] Reader = new string[2];
-        static string TestText;
-        static string TestLongText;
-        static string RSATestLongText;
+        private static string[] config;
+        private static readonly string[] Writer = new string[2];
+        private static readonly string[] Reader = new string[2];
+        private static string TestText;
+        private static string TestLongText;
+        private static string RSATestLongText;
+
         [ClassInitialize()]
         public static void ClassInitialize(TestContext testContext)
         {
@@ -81,6 +81,7 @@ namespace OuatTianYaHtmlMaker.Tests
             etext = OuatTools.AESEncryptData(TestText, key, strIV);
             Assert.IsNotNull(etext);
         }
+
         [TestMethod()]
         public void AESEncryptData1MTest()
         {
@@ -88,6 +89,7 @@ namespace OuatTianYaHtmlMaker.Tests
             string key = "keyiskey".PadRight(322, 'k');
             string strIV = "ivisiv".PadRight(166, 'i');
             string etext = null;
+
             etext = OuatTools.AESEncryptData(text, key, strIV);
             Assert.IsNotNull(etext);
         }
@@ -105,6 +107,7 @@ namespace OuatTianYaHtmlMaker.Tests
             Assert.IsNotNull(text2);
             Assert.AreEqual(TestText, text2);
         }
+
         [TestMethod()]
         public void AESDecryptData1MTest()
         {

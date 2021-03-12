@@ -2,8 +2,6 @@
 
 using Newtonsoft.Json;
 
-using System.Collections.Generic;
-
 namespace OuatTianYaHtmlMaker.Tests
 {
     [TestClass()]

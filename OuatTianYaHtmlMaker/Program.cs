@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace OuatTianYaHtmlMaker
+﻿namespace OuatTianYaHtmlMaker
 {
-    class Program
+    internal class Program
     {
-       
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Publishr ps = new Publishr();
             ps.MakeHtml();

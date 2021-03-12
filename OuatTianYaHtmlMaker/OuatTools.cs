@@ -7,14 +7,12 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 
-
-
 namespace OuatTianYaHtmlMaker
 {
     public class OuatTools
     {
-        static readonly HashAlgorithmName sha512 = HashAlgorithmName.SHA512;
-        static readonly int RSAMax = 256;
+        private static readonly HashAlgorithmName sha512 = HashAlgorithmName.SHA512;
+        private static readonly int RSAMax = 256;
 
         public static string RSAEncryptData(string text, string pubKeyfile)
         {
@@ -25,7 +23,7 @@ namespace OuatTianYaHtmlMaker
 
                 byte[] datas = Encoding.UTF8.GetBytes(text);
                 byte[] buffer;
-                RSA rsa = (RSA)x509.GetRSAPublicKey();
+                RSA rsa = x509.GetRSAPublicKey();
                 int count = datas.Length / 256 + 1;
                 StringBuilder sb1 = new StringBuilder();
                 int copylen = RSAMax;
@@ -65,7 +63,6 @@ namespace OuatTianYaHtmlMaker
             byte[] datas;
             List<byte> a1 = new List<byte>();
 
-
             for (int i = 0; i < buffer.Length; i++)
             {
                 datas = rsa.Decrypt(Convert.FromBase64String(buffer[i]), RSAEncryptionPadding.Pkcs1);
@@ -76,6 +73,7 @@ namespace OuatTianYaHtmlMaker
             ret = Encoding.UTF8.GetString(bf);
             return ret;
         }
+
         public static string RSASignData(string text, string prvKeyfile, string pw)
         {
             X509Certificate2 x509 = new X509Certificate2(prvKeyfile, pw);
@@ -85,6 +83,7 @@ namespace OuatTianYaHtmlMaker
 
             return Convert.ToBase64String(sign);
         }
+
         public static bool RSAVerifyData(string text, string pubKeyfile, string signstr)
         {
             X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
@@ -95,6 +94,7 @@ namespace OuatTianYaHtmlMaker
 
             return verify;
         }
+
         public static string U2A(string theText)
         {
             string[] sp = { "&#", ";" };
@@ -108,8 +108,8 @@ namespace OuatTianYaHtmlMaker
             }
             string ret = buffer.ToString();
             return ret;
-            
         }
+
         public static string A2U(string theText)
         {
             try
@@ -131,7 +131,6 @@ namespace OuatTianYaHtmlMaker
             }
             return "";
         }
-
 
         public static string AESEncryptData(string text, string key, string strIV, char padding = '*')
         {
@@ -255,6 +254,7 @@ namespace OuatTianYaHtmlMaker
                 return ret;
             }
         }
+
         private static byte[] getRandomBytes(string text = "RandomBytes")
         {
             byte[] ret;
@@ -293,4 +293,3 @@ namespace OuatTianYaHtmlMaker
         }
     }
 }
-

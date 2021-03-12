@@ -15,6 +15,7 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
         /// 作者公钥
         /// </summary>
@@ -22,6 +23,7 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
         /// 标题
         /// </summary>
@@ -29,6 +31,7 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
         /// 简介
         /// </summary>
@@ -36,6 +39,7 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
         /// 总章节数
         /// </summary>
@@ -43,6 +47,7 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
         /// 全部章节
         /// </summary>
@@ -50,15 +55,17 @@ namespace OuatTianYaHtmlMaker
         {
             get; set;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string ProducerName
         {
             get; set;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string ProductionSoftware
         {
@@ -66,26 +73,27 @@ namespace OuatTianYaHtmlMaker
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string OwnerName
         {
             get; set;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string OwnerPriKey
         {
             get; set;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string Config
         {
             get; set;
         }
-
     }
 }
