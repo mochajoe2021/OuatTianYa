@@ -56,6 +56,23 @@ namespace OuatTianYaHtmlMaker
             get; set;
         }
 
+        public string[] ChaptersJson()
+        {
+            Chapter[] cps = Chapters.ToArray();
+            string[] ret = new string[cps.Length];
+
+            for (int i = 0; i < ret.Length; i++)
+            {
+                ret[i] = Newtonsoft.Json.JsonConvert.SerializeObject(cps[i]);
+            }
+            return ret;
+        }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+
         /// <summary>
         ///
         /// </summary>

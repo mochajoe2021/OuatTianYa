@@ -2,8 +2,12 @@
 
 namespace OuatTianYaHtmlMaker
 {
-    public partial class MochajoeEncryptBook
+    public class MochajoeEncryptBook
     {
+        public MochajoeEncryptBook()
+        {
+        }
+
         /// <summary>
         /// 作者
         /// </summary>
@@ -90,6 +94,11 @@ namespace OuatTianYaHtmlMaker
         public string Config
         {
             get; set;
+        }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
     }
 }

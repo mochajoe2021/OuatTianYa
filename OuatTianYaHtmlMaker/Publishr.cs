@@ -4,13 +4,17 @@ namespace OuatTianYaHtmlMaker
 {
     public class Publishr
     {
-        public MochajoeBook MjBook
-        { get; set; }
+        public MochajoeBook MjBook { get; set; }
+
+        public MochajoeEncryptBook MjEBook { get; set; }
 
         public Publishr()
         {
             string buffer = System.IO.File.ReadAllText("MochajoeBook.json");
+
             MjBook = JsonConvert.DeserializeObject<MochajoeBook>(buffer);
+            buffer = System.IO.File.ReadAllText("MochajoeEncryptBook.json");
+            MjEBook = JsonConvert.DeserializeObject<MochajoeEncryptBook>(buffer);
         }
 
         public void MakeHtml()
