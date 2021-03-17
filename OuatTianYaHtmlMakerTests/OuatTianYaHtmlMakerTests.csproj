@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="book.json.user">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestConfig.user">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

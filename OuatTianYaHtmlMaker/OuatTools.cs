@@ -12,7 +12,7 @@ namespace OuatTianYaHtmlMaker
     public class OuatTools
     {
         private static readonly HashAlgorithmName sha512 = HashAlgorithmName.SHA512;
-        private static readonly int RSAMax = 256;
+        private static readonly int RSAMax = 245;
 
         public static string RSAEncryptData(string text, string pubKeyfile)
         {
@@ -35,7 +35,7 @@ namespace OuatTianYaHtmlMaker
             byte[] buffer;
             X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
             RSA rsa = x509.GetRSAPublicKey();
-            int count = datas.Length / 256 + 1;
+            int count = datas.Length / RSAMax + 1;
             StringBuilder sb1 = new StringBuilder();
             int copylen = RSAMax;
             for (int i = 0; i < count; i++)

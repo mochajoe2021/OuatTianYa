@@ -1,19 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+
+using Newtonsoft.Json;
 
 namespace OuatTianYaHtmlMaker
 {
     public class Publishr
     {
-        public MochajoeBook MjBook { get; set; }
-
         public MochajoeEncryptBook MjEBook { get; set; }
 
-        public Publishr()
+        public Publishr(string EBooksource = "MochajoeEncryptBook.json")
         {
-            string buffer = System.IO.File.ReadAllText("MochajoeBook.json");
-
-            MjBook = JsonConvert.DeserializeObject<MochajoeBook>(buffer);
-            buffer = System.IO.File.ReadAllText("MochajoeEncryptBook.json");
+            string buffer = File.ReadAllText(EBooksource);
             MjEBook = JsonConvert.DeserializeObject<MochajoeEncryptBook>(buffer);
         }
 
@@ -22,7 +22,7 @@ namespace OuatTianYaHtmlMaker
             string html = Resource1.String2;
 
             html = html.Replace("!!!textsjson!!!", Resource1.String1);
-            System.IO.File.WriteAllText($"{MjBook.AuthorName}-{MjBook.Title}.html", html);
+            System.IO.File.WriteAllText($"{MjEBook.AuthorName}-{MjEBook.Title}.html", html);
         }
     }
 }
