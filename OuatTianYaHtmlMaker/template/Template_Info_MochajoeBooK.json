@@ -1,0 +1,13 @@
+{
+    "AuthorName": "AuthorName",
+    "AuthorPubKey": "pubkey",
+	"PublisherPubKey":"pubkey"
+    "ProducerName": "mochajoe",
+    "ProductionSoftware": "OuatTianYaHtmlMaker v1.0",
+    "OwnerName": "OwnerName",
+    "OwnerPriKey": "prikey",
+    "Config": "1",
+    "Title": "Title",
+    "Introduction": "Introduction",
+    "ChaptersNumber": "ChaptersNumber"
+}

@@ -7,7 +7,7 @@ namespace OuatTianYaHtmlMaker
         /// <summary>
         ///
         /// </summary>
-        public string No
+        public string Number
         {
             get; set;
         }

@@ -22,6 +22,14 @@ namespace OuatTianYaHtmlMaker.Tests
             Writer[1] = "OUATianya-Writer-Test.pfx";
             Reader[0] = "OUATianya-Reader-Test.cer";
             Reader[1] = "OUATianya-Reader-Test.pfx";
+
+            Writer[0] = "OUATianya-Publisher-Fans.cer";
+            Writer[1] = "OUATianya-Publisher-Fans.pfx";
+            Reader[0] = "OUATianya-Reader-Fans.cer";
+            Reader[1] = "OUATianya-Reader-Fans.pfx";
+
+            config[0] = "t7T#nVsM3nts@QDb";
+            config[1] = "aGqgropr*k!Vwf3b";
         }
 
         [TestMethod()]
@@ -46,13 +54,7 @@ namespace OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void MakeMjBookTest()
         {
-            Publishr ps = new Publishr();
-
-            Assert.IsNotNull(ps.MjEBook.AuthorName);
-            Assert.IsNotNull(ps.MjEBook.Title);
-            Assert.AreEqual("三语沫", ps.MjEBook.AuthorName);
-
-            string buffer = File.ReadAllText("MochajoeBook.json");
+            string buffer = File.ReadAllText("三语沫_Head_MochajoeBook.json");
             MochajoeBook MjBook = JsonConvert.DeserializeObject<MochajoeBook>(buffer);
 
             MjBook.Chapters = new List<Chapter>();
@@ -69,7 +71,7 @@ namespace OuatTianYaHtmlMaker.Tests
                 Chapter c1 = new Chapter();
                 tchapter = tdatas.author[i];
 
-                c1.No = i.ToString();
+                c1.Number = i.ToString();
                 c1.Time = tchapter.time;
                 c1.Text = tchapter.txt;
 
@@ -100,6 +102,7 @@ namespace OuatTianYaHtmlMaker.Tests
                 } while ((rid <= aidnext) && (readernow < tdatas.reader.Length));
                 MjBook.Chapters.Add(c1);
             }
+            MjBook.ChaptersNumber = MjBook.Chapters.Count.ToString();
             string json = JsonConvert.SerializeObject(MjBook);
             File.WriteAllText("mjbook.json", json);
 
@@ -117,7 +120,7 @@ namespace OuatTianYaHtmlMaker.Tests
             Assert.IsNotNull(MjBook.Title);
             Assert.AreEqual("三语沫", MjBook.AuthorName);
 
-            string ebooksource = "MochajoeEncryptBook.json";
+            string ebooksource = "MochajoeEncryptBook.json.json";
             buffer = File.ReadAllText(ebooksource);
             MochajoeEncryptBook MjEBook = JsonConvert.DeserializeObject<MochajoeEncryptBook>(buffer);
 
@@ -132,6 +135,7 @@ namespace OuatTianYaHtmlMaker.Tests
                 e1.Etext = eText;
                 e1.Esign = eSign;
                 e1.Ekey = eKeyIv;
+                e1.Number = i.ToString();
 
                 Assert.IsNotNull(e1.Etext);
                 Assert.IsNotNull(e1.Esign);

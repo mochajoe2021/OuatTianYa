@@ -24,6 +24,11 @@ namespace OuatTianYaHtmlMaker
             get; set;
         }
 
+        public string PublisherPubKey
+        {
+            get; set;
+        }
+
         /// <summary>
         /// 标题
         /// </summary>

@@ -1,0 +1,24 @@
+<body>
+    <div class="show" id="show">
+        <p>☆</p>
+    </div>
+    <div>
+        <textarea class="pubprikey" onblur="pubprikey()" id="privkey" rows="3" cols="5"> -----BEGIN PRIVATE KEY----- -----END PRIVATE KEY----- </textarea>
+        <textarea class="pubprikey" onblur="pubprikey()" id="signpubkey" rows="3" cols="5"> -----BEGIN PUBLIC KEY----- -----END PUBLIC KEY----- </textarea>
+        <textarea id="ebook" style="display:none;">!!!EBookEBook!!!</textarea>
+    </div>
+    <div id="DivChapters">
+        <p class="Chapters" id="Chaptershead">
+            <br /> </p>
+        <p></p>
+        <div id="Chapter"> </div>
+        <div id="Reader"> </div>
+        <div class="help" id="help">
+            <p> 填好公钥私钥。 </p>
+            <p> 点击开始加载。 </p>
+        </div>
+        <div class="loading" id="loading">
+            <p> 开始加载，硬件不支持RSA解密，没有硬件支持，速度会很慢，very slow。 </p>
+        </div>
+    </div>
+</body>
