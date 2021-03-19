@@ -34,28 +34,11 @@ namespace OuatTianYaHtmlMaker
 
         private static string RSAEncryptData(string pubKeyfile, byte[] datas)
         {
-            byte[] buffer;
             X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
             RSA rsa = x509.GetRSAPublicKey();
-            int count = datas.Length / RSAMax + 1;
-            StringBuilder sb1 = new StringBuilder();
-            int copylen = RSAMax;
-            for (int i = 0; i < count; i++)
-            {
-                if ((datas.Length - i * RSAMax) < RSAMax)
-                {
-                    copylen = datas.Length - i * RSAMax;
-                }
-
-                buffer = new byte[copylen];
-                Array.Copy(datas, i * RSAMax, buffer, 0, copylen);
-                byte[] edatas = rsa.Encrypt(buffer, RSAEncryptionPadding.Pkcs1);
-                sb1.Append(Convert.ToBase64String(edatas));
-                if ((i + 1) < count)
-                    sb1.Append(',');
-            }
-
-            return sb1.ToString();
+            string ret;
+            ret = RSAEncryptData(rsa, datas);
+            return ret;
         }
 
         public static string RSADecryptData(string ciphertext, string prvKeyfile, string pw)
@@ -64,21 +47,7 @@ namespace OuatTianYaHtmlMaker
             RSA rsa = x509.GetRSAPrivateKey();
             RSAParameters para = rsa.ExportParameters(true);
             rsa.ImportParameters(para);
-            string ret;
-
-            string[] buffer = ciphertext.Split(',', StringSplitOptions.RemoveEmptyEntries);
-            byte[] datas;
-            List<byte> a1 = new List<byte>();
-
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                datas = rsa.Decrypt(Convert.FromBase64String(buffer[i]), RSAEncryptionPadding.Pkcs1);
-
-                a1.AddRange(datas);
-            }
-            byte[] bf = a1.ToArray();
-            ret = Encoding.UTF8.GetString(bf);
-            return ret;
+            return RSADecryptData(ciphertext, rsa);
         }
 
         public static string RSASignData(string text, string prvKeyfile, string pw)
@@ -94,12 +63,8 @@ namespace OuatTianYaHtmlMaker
         public static bool RSAVerifyData(string text, string pubKeyfile, string signstr)
         {
             X509Certificate2 x509 = new X509Certificate2(pubKeyfile);
-            byte[] datas = Encoding.UTF8.GetBytes(text);
-            byte[] sign = Convert.FromBase64String(signstr);
             RSA rsa = x509.GetRSAPublicKey();
-            bool verify = rsa.VerifyData(datas, sign, sha512, RSASignaturePadding.Pkcs1);
-
-            return verify;
+            return RSAVerifyData(text, rsa, signstr);
         }
 
         public static string U2A(string theText)
@@ -190,6 +155,42 @@ namespace OuatTianYaHtmlMaker
 
                 return ret;
             }
+        }
+
+        public static bool RsaSignAesDecryptData(string etext, RSA rsaOwner, RSA rsaPublisher, string eKeyIv, string eSign, out string text)
+        {
+            string[] keyIv = RSADecryptData(eKeyIv, rsaOwner).Split(',');
+            text = AESDecryptData(etext, Convert.FromBase64String(keyIv[0]), Convert.FromBase64String(keyIv[1]));
+            string sign = AESDecryptData(eSign, Convert.FromBase64String(keyIv[0]), Convert.FromBase64String(keyIv[1]));
+            bool verify = RSAVerifyData(text, rsaPublisher, sign);
+            return verify;
+        }
+
+        private static bool RSAVerifyData(string text, RSA rsa, string signstr)
+        {
+            byte[] datas = Encoding.UTF8.GetBytes(text);
+            byte[] sign = Convert.FromBase64String(signstr);
+            bool verify = rsa.VerifyData(datas, sign, sha512, RSASignaturePadding.Pkcs1);
+
+            return verify;
+        }
+
+        private static string RSADecryptData(string ciphertext, RSA rsa)
+        {
+            string ret;
+            string[] buffer = ciphertext.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            byte[] datas;
+            List<byte> a1 = new List<byte>();
+
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                datas = rsa.Decrypt(Convert.FromBase64String(buffer[i]), RSAEncryptionPadding.Pkcs1);
+
+                a1.AddRange(datas);
+            }
+            byte[] bf = a1.ToArray();
+            ret = Encoding.UTF8.GetString(bf);
+            return ret;
         }
 
         private static byte[] PaddingBytes(byte[] source, int count, byte padding = (byte)'*')
@@ -288,6 +289,67 @@ namespace OuatTianYaHtmlMaker
             string asekeyiv = Convert.ToBase64String(key) + "," + Convert.ToBase64String(iv);
             eKeyIv = RSAEncryptData(asekeyiv, ReaderPubkeyfile);
             return etext;
+        }
+
+        public static string RsaSignAesEncryptData(string text, string name, RSA reader, RSA publisher, out string eKeyIv, out string eSign)
+        {
+            byte[] key = getRandomBytes(text);
+            byte[] iv = getRandomBytes(name);
+            key = PaddingBytes(key, 32);
+            iv = PaddingBytes(iv, 16);
+            string etext = AESEncryptData(text, key, iv);
+            string sign = RSASignData(text, publisher);
+            eSign = AESEncryptData(sign, key, iv);
+            string asekeyiv = Convert.ToBase64String(key) + "," + Convert.ToBase64String(iv);
+            eKeyIv = RSAEncryptData(asekeyiv, reader);
+            return etext;
+        }
+
+        private static string RSAEncryptData(string text, RSA reader)
+        {
+            string ret;
+            try
+            {
+                byte[] datas = Encoding.UTF8.GetBytes(text);
+                ret = RSAEncryptData(reader, datas);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                ret = null;
+            }
+            return ret;
+        }
+
+        private static string RSAEncryptData(RSA rsa, byte[] datas)
+        {
+            byte[] buffer;
+            int count = datas.Length / RSAMax + 1;
+            StringBuilder sb1 = new StringBuilder();
+            int copylen = RSAMax;
+            for (int i = 0; i < count; i++)
+            {
+                if ((datas.Length - i * RSAMax) < RSAMax)
+                {
+                    copylen = datas.Length - i * RSAMax;
+                }
+
+                buffer = new byte[copylen];
+                Array.Copy(datas, i * RSAMax, buffer, 0, copylen);
+                byte[] edatas = rsa.Encrypt(buffer, RSAEncryptionPadding.Pkcs1);
+                sb1.Append(Convert.ToBase64String(edatas));
+                if ((i + 1) < count)
+                    sb1.Append(',');
+            }
+
+            return sb1.ToString();
+        }
+
+        private static string RSASignData(string text, RSA publisher)
+        {
+            byte[] datas = Encoding.UTF8.GetBytes(text);
+            byte[] sign = publisher.SignData(datas, sha512, RSASignaturePadding.Pkcs1);
+            return Convert.ToBase64String(sign);
         }
 
         public static bool RsaSignAesDecryptData(string etext, string AuthorPubkeyfile, string ReaderPrvkeyfile, string pw, string eKeyIv, string eSign, out string text)

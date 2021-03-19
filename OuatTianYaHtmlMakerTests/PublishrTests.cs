@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,6 +14,7 @@ namespace OuatTianYaHtmlMaker.Tests
         private static string[] config;
         private static readonly string[] Writer = new string[2];
         private static readonly string[] Reader = new string[2];
+        private static readonly string author = "三语沫";
 
         [ClassInitialize()]
         public static void ClassInitialize(TestContext testContext)
@@ -27,29 +29,28 @@ namespace OuatTianYaHtmlMaker.Tests
         [TestMethod()]
         public void PublishrTest()
         {
-            Publishr ps = new Publishr(new PublishrConfig("三语沫"));
+            Publisher ps = new Publisher(new PublishrConfig("三语沫"));
 
-            Assert.IsNotNull(ps.mjebook.AuthorName);
-            Assert.IsNotNull(ps.mjebook.Title);
-            Assert.AreEqual("三语沫", ps.mjebook.AuthorName);
+            Assert.IsNotNull(ps.Mjebook.AuthorName);
+            Assert.IsNotNull(ps.Mjebook.Title);
+            Assert.AreEqual("三语沫", ps.Mjebook.AuthorName);
         }
 
         [TestMethod()]
         public void MakeHtmlTest()
         {
-            Publishr ps = new Publishr(new PublishrConfig("三语沫"));
-            Assert.IsNotNull(ps.mjebook.AuthorName);
-            Assert.IsNotNull(ps.mjebook.Title);
-            Assert.AreEqual("三语沫", ps.mjebook.AuthorName);
+            Publisher ps = new Publisher(new PublishrConfig(author));
+            Assert.IsNotNull(ps.Mjebook.AuthorName);
+            Assert.IsNotNull(ps.Mjebook.Title);
+            Assert.AreEqual(author, ps.Mjebook.AuthorName);
         }
 
-        [TestMethod()]
         public void MakeMjBookTest()
         {
-            string buffer = File.ReadAllText("三语沫_Head_MochajoeBook.json");
-            MochajoeBook MjBook = JsonConvert.DeserializeObject<MochajoeBook>(buffer);
+            Publisher ps = new Publisher(new PublishrConfig(author));
 
-            MjBook.Chapters = new List<Chapter>();
+            MochajoeBook mjb = JsonConvert.DeserializeObject<MochajoeBook>(ps.Config.Template_Info);
+            mjb.Chapters = new List<Chapter>();
             string source = File.ReadAllText("book.json.user");
             TianyaDatas tdatas = JsonConvert.DeserializeObject<TianyaDatas>(source);
             int readernow;
@@ -92,37 +93,35 @@ namespace OuatTianYaHtmlMaker.Tests
                         readernow++;
                     }
                 } while ((rid <= aidnext) && (readernow < tdatas.reader.Length));
-                MjBook.Chapters.Add(c1);
+                mjb.Chapters.Add(c1);
             }
-            MjBook.ChaptersNumber = MjBook.Chapters.Count.ToString();
-            string json = JsonConvert.SerializeObject(MjBook);
+            mjb.ChaptersNumber = mjb.Chapters.Count.ToString();
+            string json = JsonConvert.SerializeObject(mjb);
             File.WriteAllText("mjbook.json", json);
 
-            Assert.IsNotNull(MjBook.Chapters);
+            Assert.IsNotNull(mjb.Chapters);
         }
 
         [TestMethod()]
         public void MakeEBookTest()
         {
-            string booksource = "MochajoeBook.json";
-            string buffer = File.ReadAllText(booksource);
-            MochajoeBook MjBook = JsonConvert.DeserializeObject<MochajoeBook>(buffer);
+            Publisher ps = new Publisher(new PublishrConfig(author));
+            MochajoeEncryptBook ebk = ps.Mjebook;
 
-            Assert.IsNotNull(MjBook.AuthorName);
-            Assert.IsNotNull(MjBook.Title);
-            Assert.AreEqual("三语沫", MjBook.AuthorName);
+            Assert.IsNotNull(ebk.AuthorName);
+            Assert.IsNotNull(ebk.Title);
+            Assert.AreEqual(author, ebk.AuthorName);
+            RSA rsaOwner = RSA.Create();
+            rsaOwner.ImportFromPem(OuatTools.Utf8Base64(ebk.OwnerPriKey).ToCharArray());
+            RSA rsaPublisher = RSA.Create();
+            rsaOwner.ImportFromPem(ps.RsaPublisher.ToCharArray());
+            string[] texts = { "test1", "test2" };
 
-            string ebooksource = "MochajoeEncryptBook.json.json";
-            buffer = File.ReadAllText(ebooksource);
-            MochajoeEncryptBook MjEBook = JsonConvert.DeserializeObject<MochajoeEncryptBook>(buffer);
-
-            string[] texts = MjBook.ChaptersJson();
-
-            MjEBook.EChapters = new List<EChapter>();
+            ebk.EChapters = new List<EChapter>();
 
             for (int i = 0; i < texts.Length; i++)
             {
-                string eText = OuatTools.RsaSignAesEncryptData(texts[i], Reader[0], Writer[1], config[0], out string eKeyIv, out string eSign);
+                string eText = OuatTools.RsaSignAesEncryptData(texts[i], author, rsaOwner, rsaPublisher, out string eKeyIv, out string eSign);
                 EChapter e1 = new EChapter();
                 e1.Etext = eText;
                 e1.Esign = eSign;
@@ -133,32 +132,18 @@ namespace OuatTianYaHtmlMaker.Tests
                 Assert.IsNotNull(e1.Esign);
                 Assert.IsNotNull(e1.Ekey);
 
-                MjEBook.EChapters.Add(e1);
-                Assert.IsNotNull(MjEBook.EChapters[i]);
-
-                bool verify = OuatTools.RsaSignAesDecryptData(MjEBook.EChapters[i].Etext, Writer[0], Reader[1], config[1], MjEBook.EChapters[i].Ekey, MjEBook.EChapters[i].Esign, out string text2);
+                ebk.EChapters.Add(e1);
+                Assert.IsNotNull(ebk.EChapters[i]);
+            }
+            for (int i = 0; i < ebk.EChapters.Count; i++)
+            {
+                bool verify = OuatTools.RsaSignAesDecryptData(ebk.EChapters[i].Etext, rsaOwner, rsaPublisher, ebk.EChapters[i].Ekey, ebk.EChapters[i].Esign, out string text2);
 
                 Assert.IsTrue(verify);
                 Assert.AreEqual(texts[i], text2);
             }
-
-            string json = MjEBook.ToString();
-            File.WriteAllText("e" + booksource, json);
+            string json = ebk.ToString();
             Assert.IsNotNull(json);
-        }
-
-        [TestMethod()]
-        public void EBookSignTest()
-        {
-            string[] texts;
-            MochajoeEncryptBook ebk = new Publishr(new PublishrConfig("三语沫")).mjebook;
-            texts = new string[ebk.EChapters.Count];
-            for (int i = 0; i < ebk.EChapters.Count; i++)
-            {
-                bool verify = OuatTools.RsaSignAesDecryptData(ebk.EChapters[i].Etext, Writer[0], Reader[1], config[1], ebk.EChapters[i].Ekey, ebk.EChapters[i].Esign, out texts[i]);
-                Assert.IsTrue(verify);
-                Assert.IsNotNull(texts[i]);
-            }
         }
     }
 }

@@ -61,6 +61,15 @@ namespace OuatTianYaHtmlMaker {
         }
         
         /// <summary>
+        ///   查找类似 LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ3l0OGV1QnhhZHpjckQKQXptWThlNS84MDlCZEdsZm5ZYmZ5SlR2YkQ3RnUva3dzQ0dDOUdRdDRQcU93VmtBRUxxMURoWWs1VThickFkdwo4YkFQZWxaL0g2d3VTTURFdmd4Wm52ZDFRZ3NvR0QwcjhndFcrOUozeENBUnUraG1aaHdBWWU2dWpnYnpHM1FWCm1aYndjdmMxQi9uU1ZSNDFCalVVaEQ3NnRTZDRjVnovUmttRjFYV3J6VGVGbFFOenVJRWFjc0ZucWVDWkE5cGEKV2t1dkJtd3pGTC83NThpRXl0SHJWL2V2RzVFMDFZV2k3dmJxRjFjRUVETnpnY0d4RXpxMS9seEV6azJqd21ReAplTCtrdHRXdUVYMXpPUTF2RnZSd0h4WE9QZkFOcmxU [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string RsaPublisher {
+            get {
+                return ResourceManager.GetString("RsaPublisher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 eyJDaGFwdGVycyI6W3siTnVtYmVyIjoiMCIsIlRpdGxlIjpudWxsLCJUaW1lIjoiMjAxMi0wMi0wMyAyMToyMyIsIlRleHQiOiI8cD7nrKzkuIDmrKHlj5HotLTvvIznuq/lsZ7miZPlj5Hml7bpl7TvvIzlgJ/mraTmiorpgqPkupvkuI3og73lho3njrDlrp7kuK3lgL7or4nnmoTlv4Pot6/ljobnqIvlgL7or4nlh7rmnaXjgII8L3A+PHA+56ys5LiA5qyh6KeB5Yiw5aW55ZGi77yM6L+c5Zyo5LiD5YWr5bm05YmN77yM6YKj5pe25YCZ5aW55Y+v5Y+x5ZKk6aOO5LqR5LqG77yM6auY5Lit55qE5aW55Zac5qyi56m/55m96Imy6aOY6YC455qE6ZW/6KOZ77yM5riF5Li95amJ57qm77yM6KKF6KKF5am35am377yM55S355Sf5Lus6YO95Li65aW555av54uC77yM5q+P5qyh5aW557uP [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string Template_Chapters {
