@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace OuatTianYaHtmlMaker.Tests
 {
     [TestClass()]
-    public class PublishrConfigTests
+    public class PublisherConfigTests
     {
         [TestMethod()]
-        public void PublishrConfigTest()
+        public void PublisherConfigTest()
         {
             string author = "三语沫";
             PublishrConfig cfg = new PublishrConfig(author);

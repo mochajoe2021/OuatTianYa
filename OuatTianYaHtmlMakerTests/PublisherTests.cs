@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace OuatTianYaHtmlMaker.Tests
 {
     [TestClass()]
-    public class PublishrTests
+    public class PublisherTests
     {
         private static string[] config;
         private static readonly string[] Writer = new string[2];
