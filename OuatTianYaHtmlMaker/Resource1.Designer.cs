@@ -61,41 +61,56 @@ namespace OuatTianYaHtmlMaker {
         }
         
         /// <summary>
-        ///   查找类似 &amp;#123;&amp;#34;&amp;#65;&amp;#117;&amp;#116;&amp;#104;&amp;#111;&amp;#114;&amp;#34;&amp;#58;&amp;#34;&amp;#92;&amp;#117;&amp;#52;&amp;#101;&amp;#48;&amp;#57;&amp;#92;&amp;#117;&amp;#56;&amp;#98;&amp;#101;&amp;#100;&amp;#92;&amp;#117;&amp;#54;&amp;#99;&amp;#97;&amp;#98;&amp;#34;&amp;#44;&amp;#34;&amp;#84;&amp;#105;&amp;#116;&amp;#108;&amp;#101;&amp;#34;&amp;#58;&amp;#34;&amp;#91;&amp;#92;&amp;#117;&amp;#53;&amp;#51;&amp;#102;&amp;#51;&amp;#92;&amp;#117;&amp;#53;&amp;#99;&amp;#98;&amp;#56;&amp;#92;&amp;#117;&amp;#54;&amp;#53;&amp;#56;&amp;#55;&amp;#92;&amp;#117;&amp;#53;&amp;#98;&amp;#53;&amp;#55;&amp;#93;&amp;#92;&amp;#117;&amp;#54;&amp;#54;&amp;#57;&amp;#55;&amp;#92;&amp;#117;&amp;#54;&amp;#48;&amp;#52;&amp;#98;&amp;#92;&amp;#117;&amp;#55;&amp;#54;&amp;#102;&amp;#52;&amp;#92;&amp;#117;&amp;#53;&amp;#57;&amp;#55;&amp;#51;&amp;#92;&amp;#117;&amp;#53;&amp;#98;&amp;#54;&amp;#54;&amp;#92; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 eyJDaGFwdGVycyI6W3siTnVtYmVyIjoiMCIsIlRpdGxlIjpudWxsLCJUaW1lIjoiMjAxMi0wMi0wMyAyMToyMyIsIlRleHQiOiI8cD7nrKzkuIDmrKHlj5HotLTvvIznuq/lsZ7miZPlj5Hml7bpl7TvvIzlgJ/mraTmiorpgqPkupvkuI3og73lho3njrDlrp7kuK3lgL7or4nnmoTlv4Pot6/ljobnqIvlgL7or4nlh7rmnaXjgII8L3A+PHA+56ys5LiA5qyh6KeB5Yiw5aW55ZGi77yM6L+c5Zyo5LiD5YWr5bm05YmN77yM6YKj5pe25YCZ5aW55Y+v5Y+x5ZKk6aOO5LqR5LqG77yM6auY5Lit55qE5aW55Zac5qyi56m/55m96Imy6aOY6YC455qE6ZW/6KOZ77yM5riF5Li95amJ57qm77yM6KKF6KKF5am35am377yM55S355Sf5Lus6YO95Li65aW555av54uC77yM5q+P5qyh5aW557uP [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string String1 {
+        internal static string Template_Chapters {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("Template_Chapters", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 &lt;!DOCTYPE HTML&gt;
-        ///&lt;html&gt;
-        ///	&lt;head&gt;
-        ///		&lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///		&lt;script type=&quot;text/javascript&quot;&gt;
-        ///		var ChapterCount = 0;
-        ///		var textsjson = &apos;!!!textsjson!!!&apos;;			
-        ///
-        ///		var text = JSON.parse(u2a(textsjson));	
-        /// 
-        ///
-        ///			function getDocumentTop() {
-        ///				var scrollTop = 0,
-        ///				bodyScrollTop = 0,
-        ///				documentScrollTop = 0;
-        ///				if (document.body) {
-        ///					bodyScrollTop = document.body.scrollTop;
-        ///				}
-        ///				if (document.documentElement) {
-        ///					documentScrollTop = document.documentElement.scrollTop;
-        ///				}
-        ///				s [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 PGJvZHk+CiAgICA8ZGl2IGNsYXNzPSJzaG93IiBpZD0ic2hvdyI+CiAgICAgICAgPHA+4piGPC9wPgogICAgPC9kaXY+CiAgICA8ZGl2PgogICAgICAgIDx0ZXh0YXJlYSBjbGFzcz0icHVicHJpa2V5IiBvbmJsdXI9InB1YnByaWtleSgpIiBpZD0icHJpdmtleSIgcm93cz0iMyIgY29scz0iNSI+IC0tLS0tQkVHSU4gUFJJVkFURSBLRVktLS0tLSAtLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tIDwvdGV4dGFyZWE+CiAgICAgICAgPHRleHRhcmVhIGNsYXNzPSJwdWJwcmlrZXkiIG9uYmx1cj0icHVicHJpa2V5KCkiIGlkPSJzaWducHVia2V5IiByb3dzPSIzIiBjb2xzPSI1Ij4gLS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0gLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tIDwvdGV4 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string String2 {
+        internal static string Template_Html_Body {
             get {
-                return ResourceManager.GetString("String2", resourceCulture);
+                return ResourceManager.GetString("Template_Html_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KdGV4dGFyZWEucHVicHJpa2V5CnsKCXdpZHRoOjEwMCU7CgloZWlnaHQ6MTAwJTsKCWJvcmRlcjp0aGluIGRvdWJsZSAjOTA2OwoJdGV4dC1hbGlnbjpsZWZ0Owp9CgpwLkNoYXB0ZXJzCnsKCWNvbG9yOiNGRkVDQkY7CgliYWNrZ3JvdW5kLWNvbG9yOiNGRkIyMDA7CglkaXNwbGF5OmJsb2NrOwoJdmlzaWJpbGl0eTp2aXNpYmxlOwoJY3Vyc29yOnBvaW50ZXI7Cglib3JkZXI6MnB4IHNvbGlkICNGRkIyMDA7Cglmb250LXNpemU6MmVtOwoJdGV4dC1hbGlnbjpjZW50ZXI7CgltYXJnaW46MCBhdXRvOwp9CgpwLkF1dGhvcgp7Cgljb2xvcjojRkZCMjAwOwoJYmFja2dyb3VuZC1jb2xvcjojRkZFQ0JGOwoJZGlzcGxheTpibG9jazsKCXZp [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string Template_Html_CSS {
+            get {
+                return ResourceManager.GetString("Template_Html_CSS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PCFET0NUWVBFIEhUTUw+CjxodG1sPgo8aGVhZD4KCTxtZXRhIGNoYXJzZXQ9InV0Zi04IiAvPgoJPHNjcmlwdD48L3NjcmlwdD4KCTxzdHlsZT48L3N0eWxlPgoJPHRpdGxlPjwvdGl0bGU+CjwvaGVhZD4KPEJvZHk+PC9Cb2R5Pgo8L2h0bWw+Cg== 的本地化字符串。
+        /// </summary>
+        internal static string Template_Html_Html {
+            get {
+                return ResourceManager.GetString("Template_Html_Html", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PGJvZHk+CiAgICA8ZGl2IGNsYXNzPSJzaG93IiBpZD0ic2hvdyI+CiAgICAgICAgPHA+4piGPC9wPgogICAgPC9kaXY+CiAgICA8ZGl2PgogICAgICAgIDx0ZXh0YXJlYSBjbGFzcz0icHVicHJpa2V5IiBvbmJsdXI9InB1YnByaWtleSgpIiBpZD0icHJpdmtleSIgcm93cz0iMyIgY29scz0iNSI+IC0tLS0tQkVHSU4gUFJJVkFURSBLRVktLS0tLSAtLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tIDwvdGV4dGFyZWE+CiAgICAgICAgPHRleHRhcmVhIGNsYXNzPSJwdWJwcmlrZXkiIG9uYmx1cj0icHVicHJpa2V5KCkiIGlkPSJzaWducHVia2V5IiByb3dzPSIzIiBjb2xzPSI1Ij4gLS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0gLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tIDwvdGV4 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string Template_Html_Script {
+            get {
+                return ResourceManager.GetString("Template_Html_Script", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ewogICAgIkF1dGhvck5hbWUiOiAi5LiJ6K+t5rKrIiwKICAgICJBdXRob3JQdWJLZXkiOiAicHVia2V5IiwKCSJQdWJsaXNoZXJQdWJLZXkiOiJMUzB0TFMxQ1JVZEpUaUJRVlVKTVNVTWdTMFZaTFMwdExTMEtUVWxKUWtscVFVNUNaMnR4YUd0cFJ6bDNNRUpCVVVWR1FVRlBRMEZST0VGTlNVbENRMmRMUTBGUlJVRnpjbVpJY21kalYyNWpNMHQzZDAwMWJWQklkUXBtTDA1UVVWaFNjRmcxTWtjek9HbFZOekozSzNoaWRqVk5URUZvWjNaU2EweGxSRFpxYzBaYVFVSkROblJSTkZkS1QxWlFSelozU0dOUVIzZEVNM0JYQ21aNEszTk1hMnBCZUV3MFRWZGFOek5rVlVsTVMwSm5PVXN2U1V4V2RuWlRaRGhSWjBWaWRtOWFiVmxqUVVkSWRYSnZORWM0ZUhRd1JscHRWemhJVERNS1RsRm1O [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string Template_Info {
+            get {
+                return ResourceManager.GetString("Template_Info", resourceCulture);
             }
         }
     }

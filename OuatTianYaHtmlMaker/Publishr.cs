@@ -9,20 +9,22 @@ namespace OuatTianYaHtmlMaker
 {
     public class Publishr
     {
-        public MochajoeEncryptBook MjEBook { get; set; }
+        public MochajoeEncryptBook mjebook { get; set; }
+        public PublishrConfig config;
 
-        public Publishr(string EBooksource = "MochajoeEncryptBook.json")
+        public Publishr(PublishrConfig cfg)
         {
-            string buffer = File.ReadAllText(EBooksource);
-            MjEBook = JsonConvert.DeserializeObject<MochajoeEncryptBook>(buffer);
+            this.config = cfg;
+            string buffer = cfg.Template_Info;
+            mjebook = JsonConvert.DeserializeObject<MochajoeEncryptBook>(buffer);
         }
 
         public void MakeHtml()
         {
-            string html = Resource1.String2;
+            string html = config.Template_Html_Html;
 
-            html = html.Replace("!!!textsjson!!!", Resource1.String1);
-            System.IO.File.WriteAllText($"{MjEBook.AuthorName}-{MjEBook.Title}.html", html);
+            //html = html.Replace("!!!textsjson!!!", Resource1.String1);
+            System.IO.File.WriteAllText($"{mjebook.AuthorName}-{mjebook.Title}.html", html);
         }
     }
 }

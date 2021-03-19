@@ -7,6 +7,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 
+using Newtonsoft.Json;
+
 namespace OuatTianYaHtmlMaker
 {
     public class OuatTools
@@ -295,6 +297,16 @@ namespace OuatTianYaHtmlMaker
             string sign = AESDecryptData(eSign, Convert.FromBase64String(keyIv[0]), Convert.FromBase64String(keyIv[1]));
             bool verify = RSAVerifyData(text, AuthorPubkeyfile, sign);
             return verify;
+        }
+
+        public static string Utf8Base64(string base64)
+        {
+            return Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+        }
+
+        public static string Template2String(string res)
+        {
+            return Utf8Base64(res);
         }
     }
 }

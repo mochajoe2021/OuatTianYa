@@ -22,33 +22,25 @@ namespace OuatTianYaHtmlMaker.Tests
             Writer[1] = "OUATianya-Writer-Test.pfx";
             Reader[0] = "OUATianya-Reader-Test.cer";
             Reader[1] = "OUATianya-Reader-Test.pfx";
-
-            Writer[0] = "OUATianya-Publisher-Fans.cer";
-            Writer[1] = "OUATianya-Publisher-Fans.pfx";
-            Reader[0] = "OUATianya-Reader-Fans.cer";
-            Reader[1] = "OUATianya-Reader-Fans.pfx";
-
-            config[0] = "t7T#nVsM3nts@QDb";
-            config[1] = "aGqgropr*k!Vwf3b";
         }
 
         [TestMethod()]
         public void PublishrTest()
         {
-            Publishr ps = new Publishr();
+            Publishr ps = new Publishr(new PublishrConfig("三语沫"));
 
-            Assert.IsNotNull(ps.MjEBook.AuthorName);
-            Assert.IsNotNull(ps.MjEBook.Title);
-            Assert.AreEqual("三语沫", ps.MjEBook.AuthorName);
+            Assert.IsNotNull(ps.mjebook.AuthorName);
+            Assert.IsNotNull(ps.mjebook.Title);
+            Assert.AreEqual("三语沫", ps.mjebook.AuthorName);
         }
 
         [TestMethod()]
         public void MakeHtmlTest()
         {
-            Publishr ps = new Publishr();
-            Assert.IsNotNull(ps.MjEBook.AuthorName);
-            Assert.IsNotNull(ps.MjEBook.Title);
-            Assert.AreEqual("三语沫", ps.MjEBook.AuthorName);
+            Publishr ps = new Publishr(new PublishrConfig("三语沫"));
+            Assert.IsNotNull(ps.mjebook.AuthorName);
+            Assert.IsNotNull(ps.mjebook.Title);
+            Assert.AreEqual("三语沫", ps.mjebook.AuthorName);
         }
 
         [TestMethod()]
@@ -159,7 +151,7 @@ namespace OuatTianYaHtmlMaker.Tests
         public void EBookSignTest()
         {
             string[] texts;
-            MochajoeEncryptBook ebk = new Publishr().MjEBook;
+            MochajoeEncryptBook ebk = new Publishr(new PublishrConfig("三语沫")).mjebook;
             texts = new string[ebk.EChapters.Count];
             for (int i = 0; i < ebk.EChapters.Count; i++)
             {
