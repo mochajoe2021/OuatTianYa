@@ -70,11 +70,12 @@ namespace OuatTianYaHtmlMaker {
         }
         
         /// <summary>
-        ///   查找类似 eyJDaGFwdGVycyI6W3siTnVtYmVyIjoiMCIsIlRpdGxlIjpudWxsLCJUaW1lIjoiMjAxMi0wMi0wMyAyMToyMyIsIlRleHQiOiI8cD7nrKzkuIDmrKHlj5HotLTvvIznuq/lsZ7miZPlj5Hml7bpl7TvvIzlgJ/mraTmiorpgqPkupvkuI3og73lho3njrDlrp7kuK3lgL7or4nnmoTlv4Pot6/ljobnqIvlgL7or4nlh7rmnaXjgII8L3A+PHA+56ys5LiA5qyh6KeB5Yiw5aW55ZGi77yM6L+c5Zyo5LiD5YWr5bm05YmN77yM6YKj5pe25YCZ5aW55Y+v5Y+x5ZKk6aOO5LqR5LqG77yM6auY5Lit55qE5aW55Zac5qyi56m/55m96Imy6aOY6YC455qE6ZW/6KOZ77yM5riF5Li95amJ57qm77yM6KKF6KKF5am35am377yM55S355Sf5Lus6YO95Li65aW555av54uC77yM5q+P5qyh5aW557uP [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
-        internal static string Template_Chapters {
+        internal static byte[] Template_Chapters {
             get {
-                return ResourceManager.GetString("Template_Chapters", resourceCulture);
+                object obj = ResourceManager.GetObject("Template_Chapters", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -106,7 +107,7 @@ namespace OuatTianYaHtmlMaker {
         }
         
         /// <summary>
-        ///   查找类似 PGJvZHk+CiAgICA8ZGl2IGNsYXNzPSJzaG93IiBpZD0ic2hvdyI+CiAgICAgICAgPHA+4piGPC9wPgogICAgPC9kaXY+CiAgICA8ZGl2PgogICAgICAgIDx0ZXh0YXJlYSBjbGFzcz0icHVicHJpa2V5IiBvbmJsdXI9InB1YnByaWtleSgpIiBpZD0icHJpdmtleSIgcm93cz0iMyIgY29scz0iNSI+IC0tLS0tQkVHSU4gUFJJVkFURSBLRVktLS0tLSAtLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tIDwvdGV4dGFyZWE+CiAgICAgICAgPHRleHRhcmVhIGNsYXNzPSJwdWJwcmlrZXkiIG9uYmx1cj0icHVicHJpa2V5KCkiIGlkPSJzaWducHVia2V5IiByb3dzPSIzIiBjb2xzPSI1Ij4gLS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0gLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tIDwvdGV4 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///   查找类似 PHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPgovL2NyeXB0by1qc0A0LjAuMC9jcnlwdG8tanMuanMKOyhmdW5jdGlvbiAocm9vdCwgZmFjdG9yeSkgewoJaWYgKHR5cGVvZiBleHBvcnRzID09PSAib2JqZWN0IikgewoJCS8vIENvbW1vbkpTCgkJbW9kdWxlLmV4cG9ydHMgPSBleHBvcnRzID0gZmFjdG9yeSgpOwoJfQoJZWxzZSBpZiAodHlwZW9mIGRlZmluZSA9PT0gImZ1bmN0aW9uIiAmJiBkZWZpbmUuYW1kKSB7CgkJLy8gQU1ECgkJZGVmaW5lKFtdLCBmYWN0b3J5KTsKCX0KCWVsc2UgewoJCS8vIEdsb2JhbCAoYnJvd3NlcikKCQlyb290LkNyeXB0b0pTID0gZmFjdG9yeSgpOwoJfQp9KHRoaXMsIGZ1bmN0aW9uICgpIHsKCgkvKmdsb2JhbHMgd2luZG93LCBnbG9i [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string Template_Html_Script {
             get {

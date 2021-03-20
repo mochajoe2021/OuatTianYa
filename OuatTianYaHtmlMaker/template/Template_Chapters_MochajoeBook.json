@@ -1,69 +1,71 @@
-{
-	"Chapters": [{
-			"No": "1",
-			"Title": "Title1",
-			"Time": "2021年3月4日09点41分",
-			"Text": "Text1",
-			"Readers": [{
-					"Name": "Readers11",
-					"Time": "value11",
-					"Reply": "value11"
-				},
-				{
-					"Name": "Readers12",
-					"Time": "value12",
-					"Reply": "value12"
-				},
-				{
-					"Name": "Readers13",
-					"Time": "value13",
-					"Reply": "value13"
-				}
-			]
-		},
-		{
-			"No": "2",
-			"Title": "Title2",
-			"Time": "2021年3月4日09点42分",
-			"Text": "Text2",
-			"Readers": [{
-					"Name": "Readers21",
-					"Time": "value21",
-					"Reply": "value21"
-				},
-				{
-					"Name": "Readers22",
-					"Time": "value22",
-					"Reply": "value22"
-				},
-				{
-					"Name": "Readers23",
-					"Time": "value23",
-					"Reply": "value23"
-				}
-			]
-		},
-		{
-			"No": "3",
-			"Title": "Title3",
-			"Time": "2021年3月4日09点43分",
-			"Text": "Text3",
-			"Readers": [{
-					"Name": "Readers31",
-					"Time": "value31",
-					"Reply": "value32"
-				},
-				{
-					"Name": "Readers32",
-					"Time": "value32",
-					"Reply": "value33"
-				},
-				{
-					"Name": "Readers33",
-					"Time": "value33",
-					"Reply": "value33"
-				}
-			]
-		}
-	]
-}
+[
+  {
+    "No": "1",
+    "Title": "Title1",
+    "Time": "2021年3月4日09点41分",
+    "Text": "Text1",
+    "Readers": [
+      {
+        "Name": "Readers11",
+        "Time": "value11",
+        "Reply": "value11"
+      },
+      {
+        "Name": "Readers12",
+        "Time": "value12",
+        "Reply": "value12"
+      },
+      {
+        "Name": "Readers13",
+        "Time": "value13",
+        "Reply": "value13"
+      }
+    ]
+  },
+  {
+    "No": "2",
+    "Title": "Title2",
+    "Time": "2021年3月4日09点42分",
+    "Text": "Text2",
+    "Readers": [
+      {
+        "Name": "Readers21",
+        "Time": "value21",
+        "Reply": "value21"
+      },
+      {
+        "Name": "Readers22",
+        "Time": "value22",
+        "Reply": "value22"
+      },
+      {
+        "Name": "Readers23",
+        "Time": "value23",
+        "Reply": "value23"
+      }
+    ]
+  },
+  {
+    "No": "3",
+    "Title": "Title3",
+    "Time": "2021年3月4日09点43分",
+    "Text": "Text3",
+    "Readers": [
+      {
+        "Name": "Readers31",
+        "Time": "value31",
+        "Reply": "value32"
+      },
+      {
+        "Name": "Readers32",
+        "Time": "value32",
+        "Reply": "value33"
+      },
+      {
+        "Name": "Readers33",
+        "Time": "value33",
+        "Reply": "value33"
+      }
+    ]
+  }
+]
