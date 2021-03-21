@@ -33,10 +33,13 @@ https://github.com/mochajoe2021/OuatTianYa/issues
  
 # 另外的话： 
 其实每个人fork这个项目，为自己喜欢的作者和文章做专属html，这样很多文章源文件删除后，也可以离线阅读。
-*这个项目生成的HTML只供个人学习使用。* 
+
+
 
 # v1.0 发布版链接
 https://github.com/mochajoe2021/OuatTianYa/releases
 
  mochajoe2021 
  2021年3月21日15点55分
+
+*这个项目生成的HTML只供个人学习使用。* 
