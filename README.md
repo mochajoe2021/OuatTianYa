@@ -4,12 +4,13 @@ Once upon a time in TianYa
 
 # What the project does
 
-这个项目是一种表达，作为作品，是感谢"三语沫"，纪念那段阅读历史。
-
 这个项目是把tianya作者"三语沫"，发表在天涯社区-一路同行-右岸文字的文章《暗恋直女学妹的日子》和读者回复，做成一个可脱机阅读的HTML文档。
+https://github.com/mochajoe2021/OuatTianYa/releases
+
+
+**这个项目是一种表达，作为作品，是感谢"三语沫"，纪念那段阅读历史。**
 
 其中的小故事可以参见wiki：
-
 https://github.com/mochajoe2021/OuatTianYa/wiki
 
 # Why the project is useful
