@@ -1,5 +1,8 @@
 ﻿namespace OuatTianYaHtmlMaker
 {
+    /// <summary>
+    /// v1.0
+    /// </summary>
     internal class Program
     {
         private static void Main(string[] args)
