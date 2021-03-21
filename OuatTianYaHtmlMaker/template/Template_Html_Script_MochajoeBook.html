@@ -94,16 +94,16 @@
 
     function GetBook()
     {
-    mochajoebook = "";
-    mochajoebook = document.getElementById("ebook").value;
-    mochajoebook = JSON.parse(mochajoebook);
-    mochajoebook.Chapters = new Array(mochajoebook.EChapters.length);
-    document.getElementById("privkey").value=CryptoJS.enc.Base64.parse(mochajoebook.OwnerPriKey).toString(CryptoJS.enc.Utf8);
-    document.getElementById("signpubkey").value = CryptoJS.enc.Base64.parse(mochajoebook.PublisherPubKey).toString(CryptoJS.enc.Utf8);
-    privkey = document.getElementById("privkey").value;
-    signkey = document.getElementById("signpubkey").value;
-    if (privkey.length < 100) return;
-    pubprikey();
+		mochajoebook = "";
+		mochajoebook = document.getElementById("ebook").value;
+		mochajoebook = JSON.parse(mochajoebook);
+		mochajoebook.Chapters = new Array(mochajoebook.EChapters.length);
+		document.getElementById("privkey").value=CryptoJS.enc.Base64.parse(mochajoebook.OwnerPriKey).toString(CryptoJS.enc.Utf8);
+		document.getElementById("signpubkey").value = CryptoJS.enc.Base64.parse(mochajoebook.PublisherPubKey).toString(CryptoJS.enc.Utf8);
+		privkey = document.getElementById("privkey").value;
+		signkey = document.getElementById("signpubkey").value;
+		if (privkey.length < 100) return;
+		pubprikey();
     }
 
     function getDocumentTop()
