@@ -1,261 +1,324 @@
-<script src=" https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/crypto-js.js">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-rc.1/bin/jsencrypt.js">
-</script>
-<script type="text/javascript">
-    var mochajoebook = "";
-    var ChapterCount = 0;
-    var privkey = "";
-    var signkey = "";
-    var keyok = false;
-</script>
-<script type="text/javascript">
-    function pubprikey()
-    {
-    signkey = document.getElementById("signpubkey");
-    privkey = document.getElementById("privkey");
-    show = document.getElementById("show");
-    help = document.getElementById("help");
-    if (signpubkey.value.length < 100 || privkey.value.length < 100)
-    {
-    signpubkey.style.visibility = "visible";
-    privkey.style.visibility = "visible";
-    show.style.visibility = "hidden";
-    help.style.visibility = "visible";
-    }
-    else
-    {
-    signpubkey.style.visibility = "hidden";
-    privkey.style.visibility = "hidden";
-    signpubkey.style.height = 0;
-    privkey.style.height = 0;
-    help.style.height = 0;
-    show.style.visibility = "visible";
-    help.style.visibility = "hidden";
-    signpubkey = document.getElementById("signpubkey");
-    privkey = document.getElementById("privkey");
-    show = document.getElementById("show");
-    keyok = true;
-    }
-    }
+	<script src=" https://cdn.jsdelivr.net/npm/crypto-js@4.0.0/crypto-js.js">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/jsencrypt@3.0.0-rc.1/bin/jsencrypt.js">
+	</script>
 
-    function getChapter()
-    {
-    console.info(ChapterCount + ',开始RSA解密,没有硬件支持，very slow，速度会很慢。');
-    if (ChapterCount < mochajoebook.EChapters.length)
-    {
-    var etext = mochajoebook.EChapters[ChapterCount].Etext;
-    var ekeyiv = mochajoebook.EChapters[ChapterCount].Ekey;
-    var esign = mochajoebook.EChapters[ChapterCount].Esign;
-    var decrypt = new JSEncrypt();
-    decrypt.setPrivateKey(privkey.value);
-    var keyiv = decrypt.decrypt(ekeyiv);
-    if (keyiv == null || keyiv == false)
-    {
-    alert('Rsa解密Something went wrong....');
-    }
-    var arr = keyiv.split(',');
-    var key = CryptoJS.enc.Base64.parse(arr[0]);
-    var iv = CryptoJS.enc.Base64.parse(arr[1]);
-    if (key == null || iv == null)
-    {
-    alert('key iv error....');
-    }
-    else
-    {}
-    var text = CryptoJS.AES.decrypt(etext, key,
-    {
-    iv: iv,
-    mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7
-    });
-    text = text.toString(CryptoJS.enc.Utf8);
-    var sign = CryptoJS.AES.decrypt(esign, key,
-    {
-    iv: iv,
-    mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7
-    });
-    sign = sign.toString(CryptoJS.enc.Utf8);
-    var verify = new JSEncrypt();
-    verify.setPublicKey(signkey.value);
-    var verified = verify.verify(text, sign, CryptoJS.SHA512);
-    if (verified)
-    {
-    mochajoebook.Chapters[ChapterCount] = JSON.parse(text);
-    console.info(mochajoebook.Chapters[ChapterCount]);
-    }
-    else
-    {
-    alert('Something went wrong....');
-    }
-    }
-    }
+	<script type="text/javascript">
+		// mochajoe2021  2021年3月22日21点15分
+		//mochajoe2021 2021年3月23日00点17分
+		var mochajoebook = "";
+		var ChapterCount = 0;
+		var privkey = "";
+		var signkey = "";
+		var keyok = false;
+		var chaptersLength;
+		var ReadingProgressDiv;
+		var ReadingProgressBar;
+		var ReadingProgressRange;
+		var ReadingProgressAllwidth;
+		var ReadingProgressStep;
+		var ReadingProgressRatio;
+		var ReadingProgressNow;
 
-    function GetBook()
-    {
-		mochajoebook = "";
-		mochajoebook = document.getElementById("ebook").value;
-		mochajoebook = JSON.parse(mochajoebook);
-		mochajoebook.Chapters = new Array(mochajoebook.EChapters.length);
-		document.getElementById("privkey").value=CryptoJS.enc.Base64.parse(mochajoebook.OwnerPriKey).toString(CryptoJS.enc.Utf8);
-		document.getElementById("signpubkey").value = CryptoJS.enc.Base64.parse(mochajoebook.PublisherPubKey).toString(CryptoJS.enc.Utf8);
-		privkey = document.getElementById("privkey").value;
-		signkey = document.getElementById("signpubkey").value;
-		if (privkey.length < 100) return;
-		pubprikey();
-    }
+	</script>
+	<script type="text/javascript">
+		function helpme(show) {
+			help = document.getElementById("help");
+			if (show) {
 
-    function getDocumentTop()
-    {
-    var scrollTop = 0,
-    bodyScrollTop = 0,
-    documentScrollTop = 0;
-    if (document.body)
-    {
-    bodyScrollTop = document.body.scrollTop;
-    }
-    if (document.documentElement)
-    {
-    documentScrollTop = document.documentElement.scrollTop;
-    }
-    scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-    return scrollTop;
-    }
+				help.style.visibility = "visible";
+			} else {
+				help = document.getElementById("help");
+				help.style.height = 0;
+				help.style.visibility = "hidden";
+			}
+		}
+		function pubprikey() {
+			signkey = document.getElementById("signpubkey");
+			privkey = document.getElementById("privkey");
+			show = document.getElementById("show");
 
-    function getWindowHeight()
-    {
-    var windowHeight = 0;
-    if (document.compatMode == "CSS1Compat")
-    {
-    windowHeight = document.documentElement.clientHeight;
-    }
-    else
-    {
-    windowHeight = document.body.clientHeight;
-    }
-    return windowHeight;
-    }
+			if (signpubkey.value.length < 100 || privkey.value.length < 100) {
+				signpubkey.style.visibility = "visible";
+				privkey.style.visibility = "visible";
+				show.style.visibility = "hidden";
+			}
+			else {
+				signpubkey.style.visibility = "hidden";
+				privkey.style.visibility = "hidden";
+				signpubkey.style.height = 0;
+				privkey.style.height = 0;
 
-    function getScrollHeight()
-    {
-    var scrollHeight = 0,
-    bodyScrollHeight = 0,
-    documentScrollHeight = 0;
-    if (document.body)
-    {
-    bodyScrollHeight = document.body.scrollHeight;
-    }
-    if (document.documentElement)
-    {
-    documentScrollHeight = document.documentElement.scrollHeight;
-    }
-    scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
-    return scrollHeight;
-    }
-    //js 获取当前时间
-    function fnDate()
-    {
-    var oDiv = document.getElementById("time");
-    var date = new Date();
-    var year = date.getFullYear(); //当前年份
-    var month = date.getMonth(); //当前月份
-    var data = date.getDate(); //天
-    var hours = date.getHours(); //小时
-    var minute = date.getMinutes(); //分
-    var second = date.getSeconds(); //秒
-    var time = year + "-" + fnW((month + 1)) + "-" + fnW(data) + " " + fnW(hours) + ":" + fnW(minute) + ":" + fnW(second);
-    return time;
-    }
+				show.style.visibility = "visible";
 
-    function fnW(str)
-    {
-    var num;
-    str >= 10 ? num = str : num = "0" + str;
-    return num;
-    }
+				signpubkey = document.getElementById("signpubkey");
+				privkey = document.getElementById("privkey");
+				show = document.getElementById("show");
 
-    function showload(event)
-    {
-    var load = document.getElementById("loading");
-    load.style.visibility = "visible";
-    setTimeout(addData, 50, event);
-    }
+				keyok = true;
+			}
+		}
 
-    function addData(event)
-    {
-    if (!keyok) return;
-    var screenHeight = getWindowHeight();
-    var Chapter = document.getElementById("Chapter");
-    var readerCount = 0;
-    var textHeight = document.getElementById("DivChapters").offsetHeight;
-    do {
-    if (ChapterCount < mochajoebook.Chapters.length)
-    {
-    getChapter();
-    var div = document.createElement("div");
-    var txt = document.createElement("p");
-    txt.className = 'Author';
-    txt.innerHTML = mochajoebook.Chapters[ChapterCount].Time + "</br>" + mochajoebook.Chapters[ChapterCount].Text;
-    div.align = "right";
-    div.appendChild(txt);
-    div.appendChild(document.createElement("p"));
-    Chapter.appendChild(div);
-    for (var i = 0; i < mochajoebook.Chapters[ChapterCount].Readers.length; i++)
-    {
-    textHeight = document.getElementById("DivChapters").offsetHeight;
-    screenHeight = getWindowHeight();
-    var div = document.createElement("div");
-    var txt = document.createElement("p");
-    txt.className = 'read';
-    txt.innerHTML = mochajoebook.Chapters[ChapterCount].Readers[i].Name + ":" + mochajoebook.Chapters[ChapterCount].Readers[i].Reply + "</br>" + mochajoebook.Chapters[ChapterCount].Readers[i].Time;
-    div.align = "left";
-    div.appendChild(txt);
-    div.appendChild(document.createElement("p"));
-    Chapter.appendChild(div);
-    }
-    }
-    else
-    {
-    var div = document.createElement("div");
-    var txt = document.createElement("p");
-    txt.className = 'Author';
-    txt.innerHTML = "没有内容了。" + "</br>" + "没有内容了。";
-    div.align = "left";
-    div.appendChild(txt);
-    div.appendChild(document.createElement("p"));
-    Chapter.appendChild(div);
-    }
-    ChapterCount++;
-    textHeight = document.getElementById("DivChapters").offsetHeight;
-    } while (textHeight < screenHeight)
-    var load = document.getElementById("loading");
-    load.style.visibility = "hidden";
-    }
-    window.onload = function()
-    {
-    pubprikey();
-    GetBook();
-    var head = document.getElementById("Chaptershead");
-    head.innerHTML = "<p align ='center' >" + mochajoebook.Title + "</p>" + "<p align ='right' >" + mochajoebook.AuthorName + "</p>";
-    head.style.align = "center";
-    document.title = mochajoebook.AuthorName + "---" + mochajoebook.Title;
-    document.body.scrollIntoView();
-    }
-    window.onscroll = function()
-    {
-    if (getScrollHeight() <= getWindowHeight() + getDocumentTop())
-    {
-    showload();
-    }
-    }
-    window.onclick = function(event)
-    {
-    if (!keyok) return;
-    if (getScrollHeight() <= getWindowHeight() + getDocumentTop())
-    {
-    pubprikey();
-    showload(event);
-    }
-    }
-</script>
+		function getChapter() {
+			console.info(ChapterCount + ',开始RSA解密,没有硬件支持，very slow，速度会很慢。');
+			if (ChapterCount < mochajoebook.EChapters.length) {
+				var etext = mochajoebook.EChapters[ChapterCount].Etext;
+				var ekeyiv = mochajoebook.EChapters[ChapterCount].Ekey;
+				var esign = mochajoebook.EChapters[ChapterCount].Esign;
+				var decrypt = new JSEncrypt();
+				decrypt.setPrivateKey(privkey.value);
+				var keyiv = decrypt.decrypt(ekeyiv);
+				if (keyiv == null || keyiv == false) {
+					alert('Rsa解密Something went wrong....');
+				}
+				var arr = keyiv.split(',');
+				var key = CryptoJS.enc.Base64.parse(arr[0]);
+				var iv = CryptoJS.enc.Base64.parse(arr[1]);
+				if (key == null || iv == null) {
+					alert('key iv error....');
+				}
+				else { }
+				var text = CryptoJS.AES.decrypt(etext, key,
+					{
+						iv: iv,
+						mode: CryptoJS.mode.CBC,
+						padding: CryptoJS.pad.Pkcs7
+					});
+				text = text.toString(CryptoJS.enc.Utf8);
+				var sign = CryptoJS.AES.decrypt(esign, key,
+					{
+						iv: iv,
+						mode: CryptoJS.mode.CBC,
+						padding: CryptoJS.pad.Pkcs7
+					});
+				sign = sign.toString(CryptoJS.enc.Utf8);
+				var verify = new JSEncrypt();
+				verify.setPublicKey(signkey.value);
+				var verified = verify.verify(text, sign, CryptoJS.SHA512);
+				if (verified) {
+					mochajoebook.Chapters[ChapterCount] = JSON.parse(text);
+					console.info(mochajoebook.Chapters[ChapterCount]);
+				}
+				else {
+					alert('Something went wrong....');
+				}
+			}
+		}
+
+		function GetBook() {
+			mochajoebook = "";
+			mochajoebook = document.getElementById("ebook").value;
+			mochajoebook = JSON.parse(mochajoebook);
+			mochajoebook.Chapters = new Array(mochajoebook.EChapters.length);
+			document.getElementById("privkey").value = CryptoJS.enc.Base64.parse(mochajoebook.OwnerPriKey).toString(CryptoJS.enc.Utf8);
+			document.getElementById("signpubkey").value = CryptoJS.enc.Base64.parse(mochajoebook.PublisherPubKey).toString(CryptoJS.enc.Utf8);
+			privkey = document.getElementById("privkey").value;
+			signkey = document.getElementById("signpubkey").value;
+			if (privkey.length < 100) return;
+			pubprikey();
+		}
+
+		function getDocumentTop() {
+			var scrollTop = 0,
+				bodyScrollTop = 0,
+				documentScrollTop = 0;
+			if (document.body) {
+				bodyScrollTop = document.body.scrollTop;
+			}
+			if (document.documentElement) {
+				documentScrollTop = document.documentElement.scrollTop;
+			}
+			scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+			return scrollTop;
+		}
+
+		function getWindowHeight() {
+			var windowHeight = 0;
+			if (document.compatMode == "CSS1Compat") {
+				windowHeight = document.documentElement.clientHeight;
+			}
+			else {
+				windowHeight = document.body.clientHeight;
+			}
+			return windowHeight;
+		}
+
+		function getScrollHeight() {
+			var scrollHeight = 0,
+				bodyScrollHeight = 0,
+				documentScrollHeight = 0;
+			if (document.body) {
+				bodyScrollHeight = document.body.scrollHeight;
+			}
+			if (document.documentElement) {
+				documentScrollHeight = document.documentElement.scrollHeight;
+			}
+			scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+			return scrollHeight;
+		}
+		//js 获取当前时间
+		function fnDate() {
+			var oDiv = document.getElementById("time");
+			var date = new Date();
+			var year = date.getFullYear(); //当前年份
+			var month = date.getMonth(); //当前月份
+			var data = date.getDate(); //天
+			var hours = date.getHours(); //小时
+			var minute = date.getMinutes(); //分
+			var second = date.getSeconds(); //秒
+			var time = year + "-" + fnW((month + 1)) + "-" + fnW(data) + " " + fnW(hours) + ":" + fnW(minute) + ":" + fnW(second);
+			return time;
+		}
+
+		function fnW(str) {
+			var num;
+			str >= 10 ? num = str : num = "0" + str;
+			return num;
+		}
+
+		function showload(event) {
+			var load = document.getElementById("loading");
+			load.style.visibility = "visible";
+			setTimeout(addData, 50, event);
+		}
+
+		function addData(event) {
+			if (!keyok) return;
+			var screenHeight = getWindowHeight();
+			var Chapter = document.getElementById("Chapter");
+			var readerCount = 0;
+			var textHeight = document.getElementById("DivChapters").offsetHeight;
+			do {
+				if (ChapterCount < mochajoebook.Chapters.length) {
+					getChapter();
+					var div = document.createElement("div");
+					var txt = document.createElement("p");
+					txt.className = 'Author';
+					txt.innerHTML = mochajoebook.Chapters[ChapterCount].Time + "</br>" + mochajoebook.Chapters[ChapterCount].Text;
+					div.align = "right";
+					div.appendChild(txt);
+					div.appendChild(document.createElement("p"));
+					Chapter.appendChild(div);
+					for (var i = 0; i < mochajoebook.Chapters[ChapterCount].Readers.length; i++) {
+						textHeight = document.getElementById("DivChapters").offsetHeight;
+						screenHeight = getWindowHeight();
+						var div = document.createElement("div");
+						var txt = document.createElement("p");
+						txt.className = 'read';
+						txt.innerHTML = mochajoebook.Chapters[ChapterCount].Readers[i].Name + ":" + mochajoebook.Chapters[ChapterCount].Readers[i].Reply + "</br>" + mochajoebook.Chapters[ChapterCount].Readers[i].Time;
+						div.align = "left";
+						div.appendChild(txt);
+						div.appendChild(document.createElement("p"));
+						Chapter.appendChild(div);
+					}
+				}
+				else {
+					var div = document.createElement("div");
+					var txt = document.createElement("p");
+					txt.className = 'Author';
+					txt.innerHTML = "没有内容了。" + "</br>" + "没有内容了。";
+					div.align = "left";
+					div.appendChild(txt);
+					div.appendChild(document.createElement("p"));
+					Chapter.appendChild(div);
+				}
+				ChapterCount++;
+				textHeight = document.getElementById("DivChapters").offsetHeight;
+			} while (textHeight < screenHeight)
+			var load = document.getElementById("loading");
+			load.style.visibility = "hidden";
+		}
+		window.onload = function () {
+			ReadingProgressStep = 0;
+			ReadingProgressRatio = 0.8;
+			ReadingProgressNow = 0;
+			ReadingProgressBar = document.getElementById("ReadingProgressBar");
+			ReadingProgressRange = document.getElementById("ReadingProgressRange");
+			ReadingProgressDiv = document.getElementById("ReadingProgressDiv");
+			chapterslength = 530;
+			ReadingProgressAllwidth = parseInt(window.innerWidth * ReadingProgressRatio);
+
+			ReadingProgressDiv.style.width = ReadingProgressAllwidth + 'px';
+			ReadingProgressBar.style.width = ReadingProgressStep + 'px';
+			ReadingProgressRange.innerHTML = 0;
+
+			ReadingProgressDiv.style.visibility = "hidden";
+
+			pubprikey();
+			GetBook();
+			var head = document.getElementById("Chaptershead");
+			head.innerHTML = "<p align ='center' >" + mochajoebook.Title + "</p>" + "<p align ='right' >" + mochajoebook.AuthorName + "</p>";
+			head.style.align = "center";
+			document.title = mochajoebook.AuthorName + "---" + mochajoebook.Title;
+			document.body.scrollIntoView();
+
+
+		}
+		window.onscroll = function () {
+			if (getScrollHeight() <= getWindowHeight() + getDocumentTop()) {
+				showload();
+			}
+		}
+		function textonclick(event) {
+
+			ReadingProgressDiv.style.visibility = "hidden";
+
+			if (!keyok) return;
+			helpme(false);
+			if (getScrollHeight() <= getWindowHeight() + getDocumentTop()) {
+				pubprikey();
+				showload(event);
+			}
+		}
+		function showReadingProgress() {
+			var cs = document.getElementById("DivChapters");
+
+
+			var ch = document.getElementById("Chapter");
+			ch.innerText = "";
+			ch = document.getElementById("Reader");
+			ch.innerText = "";
+
+
+
+			ReadingProgressDiv.style.visibility = "visible";
+
+
+		}
+		function gogogo(e, begin) {
+			ReadingProgressStep = e.offsetX;
+
+			if (ReadingProgressStep > ReadingProgressAllwidth)
+				ReadingProgressStep = ReadingProgressAllwidth;
+
+			ReadingProgressBar.style.width = ReadingProgressStep + 'px';
+			ReadingProgressNow = ReadingProgressStep / ReadingProgressAllwidth;
+			if (ReadingProgressNow * 100 > 100) ReadingProgressNow = 100;
+			ReadingProgressRange.innerHTML = parseInt(ReadingProgressNow * 100);
+			chaptersLength = mochajoebook.Chapters.length;
+
+			ChapterCount = parseInt(ReadingProgressNow * chaptersLength);
+
+
+
+		}
+		function onresize() {
+
+			ReadingProgressBar = document.getElementById("ReadingProgressBar");
+			ReadingProgressRange = document.getElementById("ReadingProgressRange");
+			ReadingProgressDiv = document.getElementById("ReadingProgressDiv");
+
+			ReadingProgressAllwidth = parseInt(window.innerWidth * ReadingProgressRatio);
+
+			ReadingProgressDiv.style.width = ReadingProgressAllwidth + 'px';
+			ReadingProgressBar.style.width = parseInt(ReadingProgressNow * ReadingProgressAllwidth) + 'px';
+			if (ReadingProgressNow * 100 > 100) ReadingProgressNow = 100;
+			ReadingProgressRange.innerHTML = parseInt(parseInt(ReadingProgressNow * 100));
+
+			ReadingProgressDiv.style.visibility = "hidden";
+
+
+		}
+
+
+	</script>

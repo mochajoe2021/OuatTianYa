@@ -22,7 +22,7 @@ namespace OuatTianYaHtmlMaker
             MjEncryptBook = JsonConvert.DeserializeObject<MochajoeEncryptBook>(buffer);
         }
 
-        public void MakeHtml()
+        public void MakeHtml(bool fast = true)
         {
             string html = Config.Template_Html_Html;
             string ebook;
@@ -32,16 +32,35 @@ namespace OuatTianYaHtmlMaker
             html = html.Replace("<style></style>", Config.Template_Html_CSS);
             html = html.Replace("<title></title>", $"<title>{MjEncryptBook.AuthorName}-{MjEncryptBook.Title}</title>");
 
-            ebook = MakeEncryptBook();
+            ebook = MakeEncryptBook(fast);
             body = body.Replace("!!!EBookEBook!!!", ebook);
             html = html.Replace("<Body></Body>", body);
             File.WriteAllText($"{MjEncryptBook.AuthorName}-{MjEncryptBook.Title}.html", html);
         }
 
-        public string MakeEncryptBook()
+        public string MakeEncryptBook(bool fast)
         {
-            Chapter[] cs = JsonConvert.DeserializeObject<Chapter[]>(Config.Template_Chapters);
-            return MakeEncryptBook(cs);
+            if (fast)
+            {
+                EChapter[] cs = JsonConvert.DeserializeObject<EChapter[]>(Config.Template_EncryptChapters);
+                return MakeEncryptBook(cs);
+            }
+            else
+            {
+                Chapter[] cs = JsonConvert.DeserializeObject<Chapter[]>(Config.Template_Chapters);
+                return MakeEncryptBook(cs);
+            }
+        }
+
+        private string MakeEncryptBook(EChapter[] cs)
+        {
+            MochajoeEncryptBook ebk;
+            string json;
+            ebk = MjEncryptBook;
+            ebk.EChapters = new List<EChapter>();
+            ebk.EChapters.AddRange(cs);
+            json = ebk.ToString();
+            return json;
         }
 
         public string MakeEncryptBook(Chapter[] chapters)

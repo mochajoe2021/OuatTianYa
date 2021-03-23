@@ -7,9 +7,10 @@
             if (author.Equals("三语沫"))
             {
                 Template_Info = OuatTools.Template2String(Resource1.Template_Info);
-                Template_Chapters = OuatTools.Template2String(System.Text.Encoding.UTF8.GetString(Resource1.Template_Chapters));
+                Template_Chapters = OuatTools.Template2String(Resource1.Template_Chapters);
+                Template_EncryptChapters = OuatTools.Template2String(Resource1.Template_EncryptChapters_MochajoeBook);
                 Template_Html_Html = OuatTools.Template2String(Resource1.Template_Html_Html);
-                Template_Html_Script = OuatTools.Template2String(Resource1.Template_Html_Script);
+                Template_Html_Script = OuatTools.Template2String(Resource1.Template_Html_ScriptAllinOn);
                 Template_Html_CSS = OuatTools.Template2String(Resource1.Template_Html_CSS);
                 Template_Html_Body = OuatTools.Template2String(Resource1.Template_Html_Body);
                 RsaPublisher = OuatTools.Utf8Base64(Resource1.RsaPublisher);
