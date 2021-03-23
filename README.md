@@ -32,12 +32,12 @@ Once upon a time in TianYa
 其实每个人fork这个项目，为自己喜欢的作者和文章做专属html，这样很多文章源文件删除后，也可以离线阅读。
 
 
-# v1.0 发布版链接
-[v1.0](https://github.com/mochajoe2021/OuatTianYa/releases)
+# v1.1 发布版链接
+[v1.1](https://github.com/mochajoe2021/OuatTianYa/releases)
 
 # 作者
 
  mochajoe2021 
  
- 2021年3月21日15点55分
+ 2021年3月23日23点10分
 
