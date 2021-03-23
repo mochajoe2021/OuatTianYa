@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Authors>mochajoe2021</Authors>
+    <Version>1.1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
